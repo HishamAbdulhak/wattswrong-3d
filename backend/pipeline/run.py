@@ -359,7 +359,7 @@ def final(rerun_reason=None, output_root=None, input_root=None):
                   for site in SITES],
         "sources": [
             *({"name": f"REFIT: Electrical Load Measurements (Cleaned), {q['source_file']}, Murray & Stankovic, University of Strathclyde",
-               "url": "https://doi.org/10.5281/zenodo.5063428", "licence": "CC BY 4.0", "md5": q["md5"]} for q in quality.values()),
+               "url": SITES[site]["source_url"], "licence": "CC BY 4.0", "md5": q["md5"]} for site, q in quality.items()),
             {"name": "Annotated load anomalies from the REFIT dataset, Rashid et al., ICASSP 2019",
              "url": "https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33", "licence": "CC BY 4.0",
              "sha256": sha256(ROOT / "data/raw/labels/REFIT_anomalies.csv")},
