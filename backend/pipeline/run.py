@@ -326,7 +326,10 @@ def final(rerun_reason=None, output_root=None, input_root=None):
         forecast += forecast_metrics(P, pred, v_end, x_end)
         w = (P["idx"] >= v_end) & (P["idx"] < x_end)
         exposure[(site, ch)] = int((w & np.isfinite(z)).sum())
-        spreads[f"{site}/{ch}"] = {"per_local_hour": [round(float(x), 5) for x in P["spread"]], "overall_mad": P["spread_overall"]}
+        # No usable out-of-sample residuals (e.g. a labelled event covers the hold-out) leaves overall NaN; the
+        # per-hour spread then sits at the floor. JSON has no NaN, so export it as null.
+        overall = P["spread_overall"] if np.isfinite(P["spread_overall"]) else None
+        spreads[f"{site}/{ch}"] = {"per_local_hour": [round(float(x), 5) for x in P["spread"]], "overall_mad": overall}
     det, merged = evaluate_window(findings, events, v_end, x_end, exposure)
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
@@ -359,7 +362,7 @@ def final(rerun_reason=None, output_root=None, input_root=None):
                   for site in SITES],
         "sources": [
             *({"name": f"REFIT: Electrical Load Measurements (Cleaned), {q['source_file']}, Murray & Stankovic, University of Strathclyde",
-               "url": "https://doi.org/10.5281/zenodo.5063428", "licence": "CC BY 4.0", "md5": q["md5"]} for q in quality.values()),
+               "url": SITES[site]["source_url"], "licence": "CC BY 4.0", "md5": q["md5"]} for site, q in quality.items()),
             {"name": "Annotated load anomalies from the REFIT dataset, Rashid et al., ICASSP 2019",
              "url": "https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33", "licence": "CC BY 4.0",
              "sha256": sha256(ROOT / "data/raw/labels/REFIT_anomalies.csv")},

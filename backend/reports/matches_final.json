@@ -1,0 +1,1415 @@
+{
+  "events": [
+    {
+      "site_id": "house1",
+      "channel": "fridge",
+      "start": "2013-11-30 02:00:00+00:00",
+      "end": "2013-11-30 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e000"
+    },
+    {
+      "site_id": "house1",
+      "channel": "fridge",
+      "start": "2013-11-30 18:00:00+00:00",
+      "end": "2013-12-01 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e001"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_1",
+      "start": "2014-06-18 23:00:00+00:00",
+      "end": "2014-06-19 04:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e002"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_1",
+      "start": "2014-08-01 18:00:00+00:00",
+      "end": "2014-08-02 13:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e003"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2014-08-01 18:00:00+00:00",
+      "end": "2014-08-02 13:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e004"
+    },
+    {
+      "site_id": "house1",
+      "channel": "fridge",
+      "start": "2014-09-06 23:50:00+00:00",
+      "end": "2014-09-07 13:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e005"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2014-09-16 15:30:00+00:00",
+      "end": "2014-09-16 19:20:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e006"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2014-10-17 12:30:00+00:00",
+      "end": "2014-10-17 19:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e007"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2014-11-28 08:15:00+00:00",
+      "end": "2014-11-28 14:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e008"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2014-12-16 11:15:00+00:00",
+      "end": "2014-12-16 16:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e009"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2014-12-20 19:00:00+00:00",
+      "end": "2014-12-20 23:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e010"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2014-12-30 19:10:00+00:00",
+      "end": "2014-12-30 23:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e011"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2015-02-08 13:30:00+00:00",
+      "end": "2015-02-08 16:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e012"
+    },
+    {
+      "site_id": "house1",
+      "channel": "washing_machine",
+      "start": "2015-02-08 13:30:00+00:00",
+      "end": "2015-02-08 16:15:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e013"
+    },
+    {
+      "site_id": "house1",
+      "channel": "electric_heater",
+      "start": "2015-02-26 00:00:00+00:00",
+      "end": "2015-03-04 12:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e014"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2015-03-09 07:40:00+00:00",
+      "end": "2015-03-09 12:20:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e015"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2015-03-25 18:00:00+00:00",
+      "end": "2015-03-26 02:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e016"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2015-04-15 11:40:00+00:00",
+      "end": "2015-04-15 15:40:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e017"
+    },
+    {
+      "site_id": "house1",
+      "channel": "fridge",
+      "start": "2015-04-23 15:00:00+00:00",
+      "end": "2015-04-23 18:45:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e018"
+    },
+    {
+      "site_id": "house1",
+      "channel": "freezer_2",
+      "start": "2015-05-28 11:40:00+00:00",
+      "end": "2015-05-28 15:40:00+00:00",
+      "n_rows": "1",
+      "event_id": "house1-e019"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2013-12-12 13:00:00+00:00",
+      "end": "2013-12-14 14:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e020"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-01-09 13:00:00+00:00",
+      "end": "2014-01-10 21:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e021"
+    },
+    {
+      "site_id": "house10",
+      "channel": "dishwasher",
+      "start": "2014-02-28 23:00:00+00:00",
+      "end": "2014-03-31 18:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e022"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-05-12 10:00:00+00:00",
+      "end": "2014-05-13 04:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e023"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-05-14 12:00:00+00:00",
+      "end": "2014-05-14 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e024"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-05-18 13:00:00+00:00",
+      "end": "2014-05-18 19:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e025"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-05-19 13:00:00+00:00",
+      "end": "2014-05-19 19:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e026"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-05-28 21:00:00+00:00",
+      "end": "2014-05-29 19:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e027"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-06-04 10:00:00+00:00",
+      "end": "2014-06-05 05:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e028"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-06-07 15:00:00+00:00",
+      "end": "2014-10-04 15:00:00+00:00",
+      "n_rows": "2",
+      "event_id": "house10-e029"
+    },
+    {
+      "site_id": "house10",
+      "channel": "fridge_freezer",
+      "start": "2014-08-01 18:00:00+00:00",
+      "end": "2014-08-02 14:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e030"
+    },
+    {
+      "site_id": "house10",
+      "channel": "kmix",
+      "start": "2014-10-03 06:00:00+00:00",
+      "end": "2014-10-03 13:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e031"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-05 15:00:00+00:00",
+      "end": "2014-10-05 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e032"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-08 08:00:00+00:00",
+      "end": "2014-10-08 22:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e033"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-10 15:00:00+00:00",
+      "end": "2014-10-10 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e034"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-11 15:00:00+00:00",
+      "end": "2014-10-11 23:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e035"
+    },
+    {
+      "site_id": "house10",
+      "channel": "fridge_freezer",
+      "start": "2014-10-13 13:00:00+00:00",
+      "end": "2014-10-13 21:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e036"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-13 15:00:00+00:00",
+      "end": "2014-10-13 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e037"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-16 10:00:00+00:00",
+      "end": "2014-10-16 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e038"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-17 09:00:00+00:00",
+      "end": "2014-10-18 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e039"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-19 15:00:00+00:00",
+      "end": "2014-10-19 23:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e040"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-23 15:00:00+00:00",
+      "end": "2014-10-23 22:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e041"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-24 09:00:00+00:00",
+      "end": "2014-10-24 18:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e042"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-26 10:00:00+00:00",
+      "end": "2014-10-26 18:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e043"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-10-30 15:00:00+00:00",
+      "end": "2014-11-02 18:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e044"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-11-03 15:00:00+00:00",
+      "end": "2014-11-04 10:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e045"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2014-11-11 18:00:00+00:00",
+      "end": "2014-11-13 07:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e046"
+    },
+    {
+      "site_id": "house10",
+      "channel": "fridge_freezer",
+      "start": "2014-11-12 09:00:00+00:00",
+      "end": "2014-11-12 18:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e047"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-01-12 12:00:00+00:00",
+      "end": "2015-01-12 23:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e048"
+    },
+    {
+      "site_id": "house10",
+      "channel": "fridge_freezer",
+      "start": "2015-01-31 09:00:00+00:00",
+      "end": "2015-01-31 18:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e049"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-03-02 17:00:00+00:00",
+      "end": "2015-03-03 17:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e050"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-03-27 11:00:00+00:00",
+      "end": "2015-03-27 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e051"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-04-10 14:00:00+00:00",
+      "end": "2015-04-10 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e052"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-04-14 15:00:00+00:00",
+      "end": "2015-04-14 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e053"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-04-15 10:00:00+00:00",
+      "end": "2015-04-15 23:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e054"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-04-23 15:00:00+00:00",
+      "end": "2015-04-23 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e055"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-04-24 11:00:00+00:00",
+      "end": "2015-04-24 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e056"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-04-25 09:00:00+00:00",
+      "end": "2015-04-25 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e057"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-05-03 11:00:00+00:00",
+      "end": "2015-05-05 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e058"
+    },
+    {
+      "site_id": "house10",
+      "channel": "chest_freezer",
+      "start": "2015-05-10 10:00:00+00:00",
+      "end": "2015-05-10 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house10-e059"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-04-03 00:00:00+00:00",
+      "end": "2014-04-03 02:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e060"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-04-10 20:00:00+00:00",
+      "end": "2014-04-11 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e061"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-04-11 18:00:00+00:00",
+      "end": "2014-04-12 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e062"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-04-14 08:00:00+00:00",
+      "end": "2014-04-14 11:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e063"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-04-16 18:00:00+00:00",
+      "end": "2014-04-17 08:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e064"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-04-18 20:00:00+00:00",
+      "end": "2014-04-19 02:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e065"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-04-21 18:00:00+00:00",
+      "end": "2014-04-22 08:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e066"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-04-24 16:30:00+00:00",
+      "end": "2014-04-24 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e067"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-05-12 18:00:00+00:00",
+      "end": "2014-05-12 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e068"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-05-20 08:00:00+00:00",
+      "end": "2014-05-20 14:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e069"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-05-20 20:00:00+00:00",
+      "end": "2014-05-20 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e070"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-05-23 16:40:00+00:00",
+      "end": "2014-05-23 19:40:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e071"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-06-04 00:00:00+00:00",
+      "end": "2014-06-04 07:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e072"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2014-06-28 00:00:00+00:00",
+      "end": "2014-06-28 08:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e073"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2014-07-09 09:20:00+00:00",
+      "end": "2014-07-09 13:22:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e074"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2014-07-24 13:40:00+00:00",
+      "end": "2014-07-24 18:12:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e075"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2014-07-26 13:00:00+00:00",
+      "end": "2014-07-26 18:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e076"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-08-28 10:00:00+00:00",
+      "end": "2014-08-28 17:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e077"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2014-08-30 12:00:00+00:00",
+      "end": "2014-09-01 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e078"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2014-09-06 09:06:00+00:00",
+      "end": "2014-09-06 11:48:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e079"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-09-21 14:32:00+00:00",
+      "end": "2014-09-21 18:15:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e080"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-10-02 10:40:00+00:00",
+      "end": "2014-10-02 13:44:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e081"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-10-04 00:00:00+00:00",
+      "end": "2014-10-04 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e082"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-10-28 18:00:00+00:00",
+      "end": "2014-10-29 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e083"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2014-12-10 23:40:00+00:00",
+      "end": "2014-12-11 04:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e084"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2014-12-23 17:00:00+00:00",
+      "end": "2014-12-23 19:20:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e085"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2015-01-08 13:30:00+00:00",
+      "end": "2015-01-08 16:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e086"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_fridge",
+      "start": "2015-01-27 10:00:00+00:00",
+      "end": "2015-01-27 21:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e087"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2015-03-26 11:46:00+00:00",
+      "end": "2015-03-26 15:46:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e088"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2015-03-27 00:00:00+00:00",
+      "end": "2015-03-27 03:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e089"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2015-03-27 13:50:00+00:00",
+      "end": "2015-03-27 18:40:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e090"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2015-04-10 12:40:00+00:00",
+      "end": "2015-04-10 13:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e091"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2015-04-12 01:00:00+00:00",
+      "end": "2015-04-12 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e092"
+    },
+    {
+      "site_id": "house18",
+      "channel": "garage_freezer",
+      "start": "2015-04-22 03:00:00+00:00",
+      "end": "2015-04-22 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e093"
+    },
+    {
+      "site_id": "house18",
+      "channel": "fridge_freezer",
+      "start": "2015-05-22 11:30:00+00:00",
+      "end": "2015-05-22 15:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house18-e094"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2013-10-25 15:00:00+00:00",
+      "end": "2013-10-26 18:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e095"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2013-11-21 00:00:00+00:00",
+      "end": "2013-11-21 10:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e096"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2013-12-24 18:00:00+00:00",
+      "end": "2013-12-25 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e097"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2013-12-27 18:00:00+00:00",
+      "end": "2013-12-28 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e098"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-01-02 13:00:00+00:00",
+      "end": "2014-01-05 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e099"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-01-06 18:00:00+00:00",
+      "end": "2014-01-07 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e100"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-01-19 00:00:00+00:00",
+      "end": "2014-01-19 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e101"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-03-08 15:00:00+00:00",
+      "end": "2014-03-09 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e102"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-03-14 03:00:00+00:00",
+      "end": "2014-03-14 04:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e103"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-04-14 15:30:00+00:00",
+      "end": "2014-04-14 19:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e104"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-04-29 15:00:00+00:00",
+      "end": "2014-04-29 21:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e105"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-05-03 12:30:00+00:00",
+      "end": "2014-05-03 15:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e106"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-05-08 08:00:00+00:00",
+      "end": "2014-05-09 09:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e107"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-05-19 09:00:00+00:00",
+      "end": "2014-05-19 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e108"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-05-27 18:00:00+00:00",
+      "end": "2014-05-28 17:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e109"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-05-29 16:10:00+00:00",
+      "end": "2014-05-29 19:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e110"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-05-29 19:00:00+00:00",
+      "end": "2014-05-29 23:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e111"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-06-08 18:00:00+00:00",
+      "end": "2014-06-08 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e112"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-06-14 15:00:00+00:00",
+      "end": "2014-06-14 21:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e113"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-06-18 18:00:00+00:00",
+      "end": "2014-06-18 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e114"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-06-22 10:00:00+00:00",
+      "end": "2014-06-22 16:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e115"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-06-22 10:10:00+00:00",
+      "end": "2014-06-22 13:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e116"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-06-23 10:00:00+00:00",
+      "end": "2014-06-23 16:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e117"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-06-27 10:30:00+00:00",
+      "end": "2014-06-27 21:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e118"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-07-12 01:00:00+00:00",
+      "end": "2014-07-12 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e119"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-07-12 11:00:00+00:00",
+      "end": "2014-07-12 21:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e120"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-07-19 09:00:00+00:00",
+      "end": "2014-07-25 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e121"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-07-28 13:00:00+00:00",
+      "end": "2014-08-05 13:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e122"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-08-01 18:00:00+00:00",
+      "end": "2014-08-02 14:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e123"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-08-08 17:00:00+00:00",
+      "end": "2014-08-14 18:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e124"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-08-16 10:00:00+00:00",
+      "end": "2014-08-18 23:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e125"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-08-28 16:00:00+00:00",
+      "end": "2014-08-29 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e126"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-02 09:00:00+00:00",
+      "end": "2014-09-04 03:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e127"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-06 18:00:00+00:00",
+      "end": "2014-09-07 12:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e128"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-09-07 00:00:00+00:00",
+      "end": "2014-09-07 13:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e129"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-09 11:00:00+00:00",
+      "end": "2014-09-09 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e130"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-10 09:00:00+00:00",
+      "end": "2014-09-10 21:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e131"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-15 09:00:00+00:00",
+      "end": "2014-09-15 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e132"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-16 08:00:00+00:00",
+      "end": "2014-09-18 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e133"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-21 08:00:00+00:00",
+      "end": "2014-09-23 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e134"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-09-30 16:00:00+00:00",
+      "end": "2014-09-30 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e135"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-10-01 09:00:00+00:00",
+      "end": "2014-10-01 17:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e136"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-10-04 13:00:00+00:00",
+      "end": "2014-10-04 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e137"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-10-05 09:00:00+00:00",
+      "end": "2014-10-05 22:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e138"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2014-10-14 08:00:00+00:00",
+      "end": "2014-10-14 23:50:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e139"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-10-23 18:00:00+00:00",
+      "end": "2014-10-24 03:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e140"
+    },
+    {
+      "site_id": "house3",
+      "channel": "dishwasher",
+      "start": "2014-11-01 14:20:00+00:00",
+      "end": "2014-11-01 16:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e141"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-12-02 19:00:00+00:00",
+      "end": "2014-12-03 02:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e142"
+    },
+    {
+      "site_id": "house3",
+      "channel": "tumble_dryer",
+      "start": "2014-12-26 11:30:00+00:00",
+      "end": "2014-12-26 15:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e143"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2014-12-26 12:30:00+00:00",
+      "end": "2014-12-26 15:30:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e144"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2015-01-02 09:30:00+00:00",
+      "end": "2015-01-02 14:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e145"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2015-01-06 13:00:00+00:00",
+      "end": "2015-01-06 19:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e146"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2015-01-22 20:00:00+00:00",
+      "end": "2015-01-22 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e147"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-01-24 11:00:00+00:00",
+      "end": "2015-01-24 12:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e148"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2015-02-01 19:00:00+00:00",
+      "end": "2015-02-01 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e149"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2015-03-03 15:00:00+00:00",
+      "end": "2015-03-03 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e150"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2015-03-17 13:00:00+00:00",
+      "end": "2015-03-17 20:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e151"
+    },
+    {
+      "site_id": "house3",
+      "channel": "fridge_freezer",
+      "start": "2015-04-02 18:00:00+00:00",
+      "end": "2015-04-02 22:00:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e152"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-04-15 18:00:00+00:00",
+      "end": "2015-04-15 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e153"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-04-16 18:00:00+00:00",
+      "end": "2015-04-16 23:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e154"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-04-18 00:00:00+00:00",
+      "end": "2015-04-18 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e155"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-04-18 18:00:00+00:00",
+      "end": "2015-04-20 08:59:00+00:00",
+      "n_rows": "2",
+      "event_id": "house3-e156"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-04-21 00:00:00+00:00",
+      "end": "2015-04-21 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e157"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-04-22 00:00:00+00:00",
+      "end": "2015-04-22 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e158"
+    },
+    {
+      "site_id": "house3",
+      "channel": "freezer",
+      "start": "2015-04-27 00:00:00+00:00",
+      "end": "2015-04-27 08:59:00+00:00",
+      "n_rows": "1",
+      "event_id": "house3-e159"
+    }
+  ],
+  "matches": {
+    "all sites, all channels (appliance or whole-house finding)": [
+      {
+        "finding_id": "house1-freezer_2-20150309T0900",
+        "event_id": "house1-e015",
+        "delay_hours": 1.3333333333333333
+      },
+      {
+        "finding_id": "house1-freezer_2-20150326T0000",
+        "event_id": "house1-e016",
+        "delay_hours": 6.0
+      },
+      {
+        "finding_id": "house10-aggregate-20150328T1700",
+        "event_id": "house10-e051",
+        "delay_hours": 30.0
+      },
+      {
+        "finding_id": "house10-aggregate-20150415T1600",
+        "event_id": "house10-e053",
+        "delay_hours": 25.0
+      },
+      {
+        "finding_id": "house1-freezer_2-20150415T1900",
+        "event_id": "house1-e017",
+        "delay_hours": 7.333333333333333
+      },
+      {
+        "finding_id": "house3-freezer-20150416T0200",
+        "event_id": "house3-e153",
+        "delay_hours": 8.0
+      },
+      {
+        "finding_id": "house3-freezer-20150418T0200",
+        "event_id": "house3-e155",
+        "delay_hours": 2.0
+      },
+      {
+        "finding_id": "house18-garage_freezer-20150422T0800",
+        "event_id": "house18-e093",
+        "delay_hours": 5.0
+      },
+      {
+        "finding_id": "house10-aggregate-20150426T1100",
+        "event_id": "house10-e057",
+        "delay_hours": 26.0
+      },
+      {
+        "finding_id": "house3-freezer-20150427T0400",
+        "event_id": "house3-e159",
+        "delay_hours": 4.0
+      },
+      {
+        "finding_id": "house10-aggregate-20150504T1400",
+        "event_id": "house10-e058",
+        "delay_hours": 27.0
+      }
+    ],
+    "all sites, whole-house meter only": [
+      {
+        "finding_id": "house10-aggregate-20150328T1700",
+        "event_id": "house10-e051",
+        "delay_hours": 30.0
+      },
+      {
+        "finding_id": "house10-aggregate-20150415T1600",
+        "event_id": "house10-e053",
+        "delay_hours": 25.0
+      },
+      {
+        "finding_id": "house10-aggregate-20150426T1100",
+        "event_id": "house10-e057",
+        "delay_hours": 26.0
+      },
+      {
+        "finding_id": "house10-aggregate-20150504T1400",
+        "event_id": "house10-e058",
+        "delay_hours": 27.0
+      }
+    ],
+    "house1 fridge": [],
+    "house1 freezer_1": [],
+    "house1 freezer_2": [
+      {
+        "finding_id": "house1-freezer_2-20150309T0900",
+        "event_id": "house1-e015",
+        "delay_hours": 1.3333333333333333
+      },
+      {
+        "finding_id": "house1-freezer_2-20150326T0000",
+        "event_id": "house1-e016",
+        "delay_hours": 6.0
+      },
+      {
+        "finding_id": "house1-freezer_2-20150415T1900",
+        "event_id": "house1-e017",
+        "delay_hours": 7.333333333333333
+      }
+    ],
+    "house1 electric_heater": [],
+    "house3 fridge_freezer": [],
+    "house3 freezer": [
+      {
+        "finding_id": "house3-freezer-20150416T0200",
+        "event_id": "house3-e153",
+        "delay_hours": 8.0
+      },
+      {
+        "finding_id": "house3-freezer-20150418T0200",
+        "event_id": "house3-e155",
+        "delay_hours": 2.0
+      },
+      {
+        "finding_id": "house3-freezer-20150427T0400",
+        "event_id": "house3-e159",
+        "delay_hours": 4.0
+      }
+    ],
+    "house10 chest_freezer": [],
+    "house10 fridge_freezer": [],
+    "house10 kmix": [],
+    "house18 garage_freezer": [
+      {
+        "finding_id": "house18-garage_freezer-20150422T0800",
+        "event_id": "house18-e093",
+        "delay_hours": 5.0
+      }
+    ],
+    "house18 garage_fridge": [],
+    "house18 fridge_freezer": []
+  }
+}
