@@ -36,7 +36,7 @@ REFIT electricity data: David Murray and Lina Stankovic, University of Strathcly
 
 `window.WattsWrong.load({ manifest, findings, timeseries })` validates and replaces the replay, stops playback, returns to the street, rebuilds controls, and starts at the exact busiest hourly timestamp. Omit `timeseries` to use labelled total costs. The initial run is **20261010T065957Z**, with **64 findings**, **two homes**, and **eight meters**. The embedded series contains **41,321 rows**.
 
-The original manifest and finding records are embedded in `<script type="application/json" id="wattswrong-data">`. The clearly marked data section normalises them; rendering uses derived home and meter views. Homes C and D have no data bindings.
+The original manifest and finding records are embedded in `<script type="application/json" id="wattswrong-data">`. The clearly marked data section normalises them; rendering uses derived home and meter views. Manifest sites fill Homes A–D in order. The embedded run has two sites, so Homes C and D have no data bindings until their datasets are added to the manifest.
 
 Activity is exactly `detected_ts <= t < end_ts + 1 hour`; a null end runs through the site's final coverage hour. Strength uses the fixed 0.50 / 0.75 thresholds. Hourly cost uses a prefix sum of positive residuals for the same site and channel from `start_ts` through `min(t, end_ts)`, multiplied by 0.444. If no series is available for a channel, the UI labels `excess_kwh × 0.444` as **Total extra cost**. Meter costs are not added together because aggregate and appliance readings overlap.
 
