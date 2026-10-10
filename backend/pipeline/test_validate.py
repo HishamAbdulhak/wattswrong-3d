@@ -55,3 +55,10 @@ def test_cross_rules():
     assert cross_errors([row(anomaly_score=2.5, is_anomalous=True)], [finding()])
     assert cross_errors([hit], [finding(channel="fridge")])
     assert cross_errors([{**hit, "anomaly_score": 1.5}], [finding()])
+
+
+def test_reads_exports_as_utf8_on_any_platform(tmp_path):
+    # Raw UTF-8 ("←" is e2 86 90) must load the same on Windows, whose default encoding is cp1252.
+    p = tmp_path / "findings.json"
+    p.write_bytes(json.dumps([{"title": "Spike – check ←"}], ensure_ascii=False).encode("utf-8"))
+    assert load_json(p) == [{"title": "Spike – check ←"}]

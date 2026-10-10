@@ -32,7 +32,7 @@ FROZEN = ["source_timezone", "label_timezone", "train_end", "validation_end", "t
 
 
 def load_cfg():
-    return json.loads((ROOT / "config/config.json").read_text())
+    return json.loads((ROOT / "config/config.json").read_text(encoding="utf-8"))
 
 
 def events_utc(label_tz):
@@ -275,7 +275,7 @@ def tune():
                                         "unmatched_per_house_month": a["unmatched_per_house_month"],
                                         "findings": a["findings"], "eligible_events": a["eligible_events"]})
     report["detector_grid"].sort(key=lambda r: (-r["f1_all"], r["unmatched_per_house_month"] or 0))
-    (ROOT / "reports/tuning_validation.json").write_text(json.dumps(report, indent=2, default=str))
+    (ROOT / "reports/tuning_validation.json").write_text(json.dumps(report, indent=2, default=str), encoding="utf-8")
     print(json.dumps({"chosen_forecast": report["chosen_forecast"], "top_detector": report["detector_grid"][:5]}, indent=2))
 
 
@@ -334,7 +334,7 @@ def final(rerun_reason=None, output_root=None, input_root=None):
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     cfg_hash = config_sha256(ROOT / "config/config.json")[:12]
-    quality = {site: json.loads(((input_root or ROOT) / f"reports/quality_{site}.json").read_text()) for site in SITES}
+    quality = {site: json.loads(((input_root or ROOT) / f"reports/quality_{site}.json").read_text(encoding="utf-8")) for site in SITES}
     metrics = {
         "run_id": run_id, "source": "real", "code_revision": rev, "config_sha256_12": cfg_hash,
         "split": {"train_end": str(t_end), "validation_end": str(v_end), "test_end": str(x_end)},
@@ -349,9 +349,9 @@ def final(rerun_reason=None, output_root=None, input_root=None):
     }
     data_dir = destination / "web/public/data"
     data_dir.mkdir(parents=True, exist_ok=True)
-    (data_dir / "timeseries.json").write_text(json.dumps(rows, allow_nan=False))
-    (data_dir / "findings.json").write_text(json.dumps(findings, allow_nan=False, indent=1))
-    (data_dir / "metrics.json").write_text(json.dumps(metrics, allow_nan=False, indent=1))
+    (data_dir / "timeseries.json").write_text(json.dumps(rows, allow_nan=False), encoding="utf-8")
+    (data_dir / "findings.json").write_text(json.dumps(findings, allow_nan=False, indent=1), encoding="utf-8")
+    (data_dir / "metrics.json").write_text(json.dumps(metrics, allow_nan=False, indent=1), encoding="utf-8")
     def coverage(site):
         ts = [r["ts"] for r in rows if r["site_id"] == site and r["channel"] == "aggregate"]
         return {"coverage_start": ts[0], "coverage_end": ts[-1]} if ts else {"coverage_start": "", "coverage_end": ""}
@@ -369,15 +369,15 @@ def final(rerun_reason=None, output_root=None, input_root=None):
         ],
         "spread": spreads,
     }
-    (data_dir / "manifest.json").write_text(json.dumps(manifest, allow_nan=False, indent=1))
+    (data_dir / "manifest.json").write_text(json.dumps(manifest, allow_nan=False, indent=1), encoding="utf-8")
     art = destination / "artifacts" / run_id
     art.mkdir(parents=True)
     pd.DataFrame(rows).to_parquet(art / "timeseries.parquet", index=False)
     pd.DataFrame(findings).to_parquet(art / "findings.parquet", index=False)
     lock.parent.mkdir(parents=True, exist_ok=True)
-    lock.write_text(json.dumps(metrics, indent=2))
+    lock.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
     (destination / "reports/matches_final.json").write_text(json.dumps(
-        {"events": merged.astype(str).to_dict("records"), "matches": {d["scope"]: d["matches"] for d in det}}, indent=2))
+        {"events": merged.astype(str).to_dict("records"), "matches": {d["scope"]: d["matches"] for d in det}}, indent=2), encoding="utf-8")
     print(json.dumps(metrics, indent=2))
 
 

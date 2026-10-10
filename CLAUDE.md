@@ -26,7 +26,6 @@ python3 -c "import re;h=open('index.html').read();open('/tmp/mod.mjs','w').write
 - Lines 43–44 are the embedded `wattswrong-data` (~140 KB) and `wattswrong-series` (~1.4 MB) JSON on single lines. Never print or grep them whole. Read the data with `json.loads` on the matching `<script>` tag instead.
 - Script lines run to ~3,000 characters. Edit them with exact-substring replacements that assert exactly one match. Locate functions with `grep -n 'function name('` and read single lines with `sed -n 'Np'`. Don't read the file linearly.
 - `Data.load` runs at module top, before the three.js `await import`. Scene code can therefore read `Data` while it builds. After `WattsWrong.load`, `reinitialize()` must rebind anything the scene captured from the old data.
-- `DELIVERABLE.md` is a stale hand-made snapshot. Don't update it unless asked.
 
 ## Verifying changes
 
