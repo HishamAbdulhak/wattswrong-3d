@@ -1,6 +1,6 @@
 # WattsWrong 3D
 
-A browser 3D historical replay of WattsWrong findings for two real REFIT homes, for householders to explore what was found, what it cost and what to check. Shared terms are copied from the backend glossary (`WattsWrong/GLOSSARY.md`); if the two disagree, the backend glossary wins.
+A browser 3D historical replay of WattsWrong findings for two real REFIT homes, for householders to explore what was found, what it cost and what to check.
 
 ## Where usage is measured
 
@@ -91,8 +91,33 @@ A notable fact about a finding, such as being the largest on its meter or the lo
 _Avoid_: achievement, award, badge, record
 
 **Confirmation time**:
-How long after a finding's start it was detected. It is not detection delay, which is measured against labelled events.
+How long after a finding's start it was detected. It is not detection delay.
 _Avoid_: detection delay, time to detect, response time
+
+## Evidence
+
+**Test window**:
+The span of recorded data (31 Jan – 31 May 2015) that findings are scored on, after every setting has been fixed.
+_Avoid_: test set, holdout
+
+**Frozen run**:
+The single scoring of the test window, made with settings fixed before it ran. It is never repeated to improve results.
+_Avoid_: rerun, retrain, latest run
+
+**Labelled event**:
+A researcher annotation of unusual appliance behaviour in the REFIT anomaly labels. It is evidence of unusual usage, not a confirmed fault.
+_Avoid_: anomaly, fault, ground truth
+
+**Matched finding**:
+A finding paired one-to-one with a labelled event on the same site, on that event's channel or the whole-house meter, detected between the event's start and 24 hours after its end.
+
+**Unmatched finding**:
+A finding not paired with any labelled event. Labels may be incomplete, so it is not a confirmed false alarm.
+_Avoid_: false alarm, false positive
+
+**Detection delay**:
+Detected time minus the matched labelled event's start, measured only for labelled events that were detected.
+_Avoid_: confirmation time (that is measured from the finding's own start)
 
 ## Telling the story
 
