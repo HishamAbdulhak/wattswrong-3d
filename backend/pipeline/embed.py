@@ -50,13 +50,16 @@ def replace_block(html, tag, value):
 
 def embed(data_dir, app=APP):
     data_dir = Path(data_dir)
-    read = lambda name: json.loads((data_dir / name).read_text())
+    read = lambda name: json.loads((data_dir / name).read_text(encoding="utf-8"))
     rows = read("timeseries.json")
     series = compact(rows)
-    html = Path(app).read_text()
+    # UTF-8 whatever the platform's default, and newline="" so the page's line endings are kept.
+    with open(app, encoding="utf-8", newline="") as f:
+        html = f.read()
     html = replace_block(html, "wattswrong-data", {"manifest": read("manifest.json"), "findings": read("findings.json")})
     html = replace_block(html, "wattswrong-series", series)
-    Path(app).write_text(html)
+    with open(app, "w", encoding="utf-8", newline="") as f:
+        f.write(html)
     return len(rows), len(series)
 
 
