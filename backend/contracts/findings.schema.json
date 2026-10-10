@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:wattswrong:findings:1",
+  "title": "findings",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "finding_id",
+      "site_id",
+      "channel",
+      "category",
+      "start_ts",
+      "detected_ts",
+      "end_ts",
+      "excess_kwh",
+      "rm_per_month",
+      "confidence",
+      "title",
+      "explanation",
+      "possible_causes",
+      "action",
+      "source",
+      "status"
+    ],
+    "properties": {
+      "finding_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string"
+      },
+      "site_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string"
+      },
+      "channel": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string; aggregate if no appliance meter"
+      },
+      "category": {
+        "type": "string",
+        "minLength": 1,
+        "enum": [
+          "baseload_creep",
+          "overnight_excess",
+          "spike",
+          "gradual_drift",
+          "appliance_abnormal",
+          "aircon_overnight",
+          "peak_hour_waste"
+        ],
+        "description": "string; One of: baseload_creep, overnight_excess, spike, gradual_drift, appliance_abnormal, aircon_overnight, peak_hour_waste"
+      },
+      "start_ts": {
+        "type": "string",
+        "format": "date-time",
+        "description": "ISO 8601; When the deviation began"
+      },
+      "detected_ts": {
+        "type": "string",
+        "format": "date-time",
+        "description": "ISO 8601; detected minus start = detection delay"
+      },
+      "end_ts": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time",
+        "description": "ISO 8601 or null; null = still ongoing"
+      },
+      "excess_kwh": {
+        "type": "number",
+        "minimum": 0,
+        "description": "float; Above forecast so far"
+      },
+      "rm_per_month": {
+        "type": "number",
+        "minimum": 0,
+        "description": "float; Projected monthly cost if it continues; 0 once ended (total cost = excess_kwh × tariff)"
+      },
+      "confidence": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "float, 0–1 (heuristic detection strength, not a probability; UI shows High ≥ 0.75, Medium ≥ 0.5, else Low)"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string; Card headline"
+      },
+      "explanation": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string; Plain language, no confirmed-fault claims"
+      },
+      "possible_causes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "list of strings; Only when the channel is an appliance"
+      },
+      "action": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string; One action"
+      },
+      "source": {
+        "type": "string",
+        "minLength": 1,
+        "enum": [
+          "real",
+          "synthetic",
+          "live"
+        ],
+        "description": "string; real (REFIT label), synthetic (injected) or live; keeps the two evaluations apart"
+      },
+      "status": {
+        "type": "string",
+        "minLength": 1,
+        "enum": [
+          "open",
+          "fixed",
+          "false_alarm",
+          "away"
+        ],
+        "description": "string; open, fixed, false_alarm, away"
+      }
+    }
+  }
+}

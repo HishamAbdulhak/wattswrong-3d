@@ -4,7 +4,7 @@ Guidance for coding agents working in this repository.
 
 ## What this is
 
-WattsWrong: a browser 3D "historical replay" of household electricity anomaly findings (REFIT dataset, 2014–15). The entire app — HTML, CSS, JS, and the embedded findings data — is the single file `index.html`. There is no build step, package.json, linter, or test suite.
+WattsWrong: a browser 3D "historical replay" of household electricity anomaly findings (REFIT dataset, 2014–15). The entire app — HTML, CSS, JS, and the embedded findings data — is the single file `index.html`. The static app has no build step, package.json, linter, or test suite. The independent offline Python backend lives in `backend/` and has its own lockfile and pytest suite.
 
 ## Running
 
@@ -15,6 +15,12 @@ npx serve .
 Open the printed address, or open `index.html` via `file://`: the hourly series (41k rows) is embedded as `<script type="application/json" id="wattswrong-series">`, generated from `data/timeseries.json` by `python3 embed_series.py` (re-run it after changing that file). three.js (0.169.0), its addons and all textures/HDRI/sofa glTF come from CDNs, so internet access is needed for 3D.
 
 Verification is manual in a browser, plus the console API: `window.WattsWrong.getState()`, `window.WattsWrong.setTime('2014-11-26T11:00:00Z')`, `window.WattsWrong.load({manifest, findings, timeseries})`.
+
+## Offline backend
+
+From `backend/`, run `uv sync --locked`, then `uv run --locked python -m pytest -q pipeline`. Rebuild hourly inputs with `uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House1.csv house1` and the corresponding House 3 command. Raw-file sources and MD5s are in README "Offline backend".
+
+The pipeline, tests, contracts, config and ADRs 0001–0013 are forked from commit `b57cde9`. All runtime paths resolve inside `backend/`; nothing depends on another checkout. Preserve the frozen config. Do not run `pipeline.run tune` or `pipeline.run final` as routine verification: scoring the test window belongs to the separately authorized frozen-run ticket. No frozen-run outputs or lock were imported. The inherited export directory is `backend/web/public/data/`; the root static replay still uses its existing embedded data.
 
 ## Architecture of `index.html`
 
