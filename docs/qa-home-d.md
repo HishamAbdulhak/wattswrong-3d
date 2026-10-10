@@ -1,4 +1,4 @@
-# Home D garage verification
+# Home C and D garage verification
 
 Issue #8, checked 11 October 2026.
 
@@ -17,10 +17,10 @@ node scripts/check-home-d.mjs /absolute/path/to/three-package
 ```
 
 The check runs the actual scene helpers and data model with Three.js, using the
-embedded frozen findings. It verifies exact appliance placement, batching,
+embedded frozen findings. It verifies exact Home C and D appliance placement, batching,
 inherited garage scaling, tint activation/reset on every metered channel, three
 build/dispose cycles, preservation of shared materials/cached geometry, and the
-existing A/B/C meter layouts. It also checks that neighbourhood batching keeps
+existing A/B meter layouts. It also checks that neighbourhood batching keeps
 tree trunks and foliage together for visibility changes. Canvas serialization
 warnings are expected from the test's minimal canvas stub.
 
