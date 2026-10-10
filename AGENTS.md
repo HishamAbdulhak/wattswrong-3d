@@ -35,3 +35,17 @@ Use the terms in `GLOSSARY.md` for UI copy (e.g. finding, detection strength, ex
 
 - `DELIVERABLE.md` — a hand-made snapshot of `index.html` (fenced) plus the README. It does not regenerate itself and will drift from `index.html` after edits.
 - `WattsWrong-3D/` — an older duplicate copy of the project; untracked (in `.gitignore`).
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs are GitHub issues on HishamAbdulhak/wattswrong-3d, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five default triage labels (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` at the root, ADRs in `backend/docs/adr/`. See `docs/agents/domain.md`.
