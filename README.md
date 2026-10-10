@@ -2,10 +2,13 @@
 
 ## Run
 
-- Open `index.html` directly in a modern WebGL2 browser. Embedded findings and manifest work immediately; external three.js, font and optional visual assets need internet access. Direct-file mode deliberately skips the optional series request to avoid file-origin restrictions and shows **Total extra cost**.
-- For cumulative hourly costs, keep `data/timeseries.json` beside the HTML under `data/`, and run `npx serve .` from this folder. Open the printed address. No build step is required.
-- Choose a home, drag to orbit, and use Ground / First / Both. Tab and Enter operate the home and meter buttons. Escape closes details, then returns to the street. The table offers a separate keyboard route to every meter.
-- High enables SSAO, 2048-pixel sun shadows and a pixel ratio capped at 2. Balanced disables SSAO, uses 1024-pixel shadows and caps the pixel ratio at 1.25. Both use selective status bloom and FXAA.
+- Open `index.html` directly in a modern WebGL2 browser, or run `npx serve .` from this folder and open the printed address. The manifest, findings and the full hourly series are embedded, so graphs and **Extra cost so far** work either way; external three.js, font and optional visual assets need internet access. No build step is required.
+- The embedded series is a compact copy of `data/timeseries.json` (runs of consecutive hours, `actual_kwh` and `residual_kwh` per row, unchanged; forecast = actual − residual). After changing that file, run `python3 embed_series.py` to re-embed it; the script checks every row is kept.
+- Homes with active findings show a **!** marker. Click a home once for its card and again to go inside; the home dashboard opens (meters, active findings, whole-house actual-vs-forecast graph). Click a meter once for its card and again (or double-click) for its detail: excess energy, excess cost, pattern, graph, possible causes and the next step. Drag to orbit and use Downstairs / Upstairs / Both floors. Tab and Enter operate the home and meter buttons. Escape closes the card, then the meter detail, then returns to the street. The table offers a separate keyboard route to every meter's detail.
+- **Year in energy** (header) plays a full-screen recap of the whole replay: findings spotted, typical time to spot one, the biggest single finding (with its overstated-cost caveat), the most common pattern and the longest calm streak, then buttons into each home. Slides advance every 5 s; tap the sides or use ←/→, Escape closes. Totals are finding counts or single findings, never costs summed across meters.
+- A home's dashboard opens with a status circle (findings right now and the whole-home extra cost), cards for each active finding, and a calm-streak calendar of the last four weeks; click a day to jump the replay there. A meter's detail adds achievement tags (spotted within 6 hours, biggest on this meter, longest in this home) and **Day by day** bars of extra kWh per day, which add up to its extra energy so far.
+- **Day / Week / Month / All** set the replay window to the day being replayed, the week or 30 days ending on it, or every date; **‹ ›** move it by its own length. The From / To dates also set the replay window: the slider, finding lanes and graphs follow it, and **Show only this finding's dates** sets it to a finding ±2 days. Graphs are hourly for windows up to 21 days, otherwise daily totals of recorded hours; up to 240 hours they draw one bar per hour, coloured inside a finding, against a dashed expected line. Each graph has a **kWh / RM** switch and a "What does this graph show?" note. A meter's detail leads with its extra cost, then the next step and possible causes as cards with a way to check each. Play covers the window in about a minute. **Pop out** pops the replay panel out into a floating widget over the page: move it by its top handle (drag, or focus it and use the arrow keys), resize it from its bottom-right corner, and press **Put back** or drag it back to the bottom edge (it outlines when it will snap) to put it back.
+- Graphics **Sharper** (`high`) enables SSAO, 2048-pixel sun shadows and a pixel ratio capped at 2. **Faster** (`balanced`) disables SSAO, uses 1024-pixel shadows and caps the pixel ratio at 1.25. Both use selective status bloom and FXAA.
 
 ## Assets and licences
 
@@ -31,25 +34,31 @@ REFIT electricity data: David Murray and Lina Stankovic, University of Strathcly
 
 ## Data interface
 
-`window.WattsWrong.load({ manifest, findings, timeseries })` validates and replaces the replay, stops playback, returns to the street, rebuilds controls, and starts at the exact busiest hourly timestamp. Omit `timeseries` to use labelled total costs. A later explicit load takes precedence over the initial optional fetch. The initial run is **20261010T065957Z**, with **64 findings**, **two homes**, and **eight meters**. The optional series contains **41,321 rows**.
+`window.WattsWrong.load({ manifest, findings, timeseries })` validates and replaces the replay, stops playback, returns to the street, rebuilds controls, and starts at the exact busiest hourly timestamp. Omit `timeseries` to use labelled total costs. The initial run is **20261010T065957Z**, with **64 findings**, **two homes**, and **eight meters**. The embedded series contains **41,321 rows**.
 
 The original manifest and finding records are embedded in `<script type="application/json" id="wattswrong-data">`. The clearly marked data section normalises them; rendering uses derived home and meter views. Homes C and D have no data bindings.
 
 Activity is exactly `detected_ts <= t < end_ts + 1 hour`; a null end runs through the site's final coverage hour. Strength uses the fixed 0.50 / 0.75 thresholds. Hourly cost uses a prefix sum of positive residuals for the same site and channel from `start_ts` through `min(t, end_ts)`, multiplied by 0.444. If no series is available for a channel, the UI labels `excess_kwh × 0.444` as **Total extra cost**. Meter costs are not added together because aggregate and appliance readings overlap.
+
+Possible causes: appliance findings show the exported `possible_causes`. Whole-house findings have none and the meter cannot name a device, so the dashboard estimates three from the average extra power (`excess_kwh` over the finding's hours, banded with typical US DOE appliance wattages) plus one from the pattern's timing, labelled as estimates to check, not a diagnosis. Findings longer than 7 days carry a note that their cost may be overstated.
 
 Convenience methods: `window.WattsWrong.getState()` returns a derived snapshot; `window.WattsWrong.setTime('2014-11-26T11:00:00Z')` selects a replay hour.
 
 ## Assumptions and practical limits
 
 - Room layouts, furniture and positions are illustrative. Both-floor mode separates the upper floor vertically so ground-floor rooms remain visible. Ground and First isolate their respective floors. The camera-facing room walls lower as the camera moves.
-- Golden-hour lighting stays fixed as replay time changes. The optional day/night lighting and depth-of-field effects were omitted. Camera transitions take about 1.5 seconds; reduced-motion settings replace flights with cuts and remove pulsing.
+- Golden-hour lighting stays fixed as replay time changes. The optional day/night lighting and depth-of-field effects were omitted. Camera transitions take about 0.9 seconds; reduced-motion settings replace flights with cuts and remove pulsing.
 - Architecture, appliances, vegetation and most furniture are procedural. The CC0 sofa loads on first entry and retains a procedural fallback if unavailable. A reflected HDRI, PBR texture maps, raster shadows, SSAO and selective bloom provide the architectural rendering; this is not path tracing, and photographic equivalence is not claimed.
 - Connected homes open cutaways. C and D provide the required no-data tooltip and placards without invented interiors or meter readings.
 - The supplied series has gaps. Costs sum the supplied positive residual rows; missing hours are not estimated. Total fallback costs are expressly labelled and can include hours later than the selected replay time, as required by the data contract.
 - The forecast models are not rerun here. This is a visualisation of the discovered original exports, not a new evaluation.
 - The application is self-contained in its HTML/CSS/JS and embedded small data, but external three.js modules still require a working CDN connection unless mirrored locally. Optional visual-asset errors keep procedural materials/models. If the engine or WebGL is unavailable, the accessible replay table remains usable. Browser-generated network diagnostics cannot be prevented when remote assets are deliberately blocked.
-- 60 fps is a performance target, not a measured guarantee. Instanced foliage and roof tiles, static geometry batching, lazy interiors, shared resources and the Balanced toggle reduce cost. GPU/driver performance varies.
+- 60 fps is a performance target, not a measured guarantee. If frames run slow, the pixel ratio steps down and Sharper falls back to Faster; choosing a quality again resets this. Status glows use emissive materials and bloom (rendered at half resolution) rather than point lights, so status changes never force shader recompiles. Instanced foliage and roof tiles, static geometry batching, lazy interiors, shared resources and the Balanced toggle reduce cost. GPU/driver performance varies.
 
 ## Verification
 
 Automated checks passed for all 64 detection/end boundaries, the busiest hourly timestamp, null-ended coverage, fixed strength bands, replacement data, missing-series totals and cumulative costs against raw series rows. Browser checks covered both connected homes, keyboard entry, floor switching, playback/pause, return navigation, quality switching and a 375-pixel viewport without horizontal document overflow. The inspected browser run had no console errors. Deliberately blocked assets and a broad cross-browser/device matrix were not exercised. The busiest hour is **26 November 2014, 11:00 Europe/London**, with three active findings.
+
+## Wording
+
+Interface text is written for householders, not analysts: "expected" for the forecast, "Whole home" for the aggregate meter, plain pattern names (e.g. *Use slowly creeping up* for `gradual_drift`, *Higher always-on use* for `baseload_creep`), and "Normal" for meters with no active finding. The judging terms stay: *finding*, *detection strength*, *extra cost*. Finding titles, explanations and actions are the exported text, passed through `clean()`.
