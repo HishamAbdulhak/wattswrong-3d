@@ -87,5 +87,5 @@ if __name__ == "__main__":
     (ROOT / "data/interim").mkdir(parents=True, exist_ok=True)
     hourly.to_parquet(ROOT / f"data/interim/{site}_hourly.parquet", index=False)
     (ROOT / "reports").mkdir(exist_ok=True)
-    (ROOT / f"reports/quality_{site}.json").write_text(json.dumps(quality, indent=2))
+    (ROOT / f"reports/quality_{site}.json").write_text(json.dumps(quality, indent=2), encoding="utf-8")
     print(json.dumps(quality, indent=2))

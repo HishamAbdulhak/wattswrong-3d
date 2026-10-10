@@ -12,21 +12,30 @@
 
 ## Offline backend
 
-`backend/` is a one-way fork of the WattsWrong pipeline at commit `b57cde9`, with its own Python project and freshly generated `uv.lock`. It is independent and is never synced with its origin. Run all backend commands from that directory:
+`backend/` is a one-way fork of the WattsWrong pipeline at commit `b57cde9`, with its own Python project and freshly generated `uv.lock`. It is independent and is never synced with its origin. Run all backend commands from that directory. Python 3.12+ and `uv` are required.
+
+Test, validate the exports and re-embed them (no raw files needed):
 
 ```bash
 cd backend
 uv sync --locked
 uv run --locked python -m pytest -q pipeline
-uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House1.csv house1
-uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House3.csv house3
-uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House10.csv house10
-uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House18.csv house18
 uv run --locked python -m pipeline.validate
 uv run --locked python -m pipeline.embed
 ```
 
-Python 3.12+ and `uv` are required. `pipeline.validate` checks the frozen run's exports in `web/public/data/` against the locked contracts and cross-table rules, and prints every violation. `pipeline.embed` validates them again, then writes the manifest, findings and hourly series into `../index.html`; it fails if any row is lost or an hour repeats. Neither needs the raw files: from a clean checkout, `uv sync --locked`, `pipeline.validate` and `pipeline.embed` leave `index.html` unchanged. Ingest writes `data/interim/<site>_hourly.parquet` and `reports/quality_<site>.json` for each of `house1`, `house3`, `house10` and `house18`, all relative to `backend/`. Raw inputs, hourly intermediates, quality reports and the virtual environment are git-ignored. Hourly files are rebuilt from raw CSVs, never copied.
+`pipeline.validate` checks the frozen run's exports in `web/public/data/` against the locked contracts and cross-table rules, and prints up to 200 violations and their total. `pipeline.embed` validates them again, then writes the manifest, findings and hourly series into `../index.html`; it fails if any row is lost or an hour repeats, and swaps the page in only once it is fully written. From a clean checkout these commands leave `index.html` unchanged.
+
+Rebuild the hourly inputs (needs the raw files below):
+
+```bash
+uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House1.csv house1
+uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House3.csv house3
+uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House10.csv house10
+uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House18.csv house18
+```
+
+Ingest writes `data/interim/<site>_hourly.parquet` and `reports/quality_<site>.json` for each of `house1`, `house3`, `house10` and `house18`, all relative to `backend/`. Raw inputs, hourly intermediates, quality reports and the virtual environment are git-ignored. Hourly files are rebuilt from raw CSVs, never copied.
 
 Place the following real source files under `backend/data/raw/`. Houses 1 and 3 are individual cleaned CSVs on Zenodo. Houses 10 and 18 are not on Zenodo: extract them from Strathclyde's cleaned archive (`CLEAN_REFIT_081116.7z`, md5 `a3ba34e6e8073f1aea490e62cb731d2b`), whose House 1 and 3 files match Zenodo's md5s. The annotation source supplies the labels and their readme. All files are CC BY 4.0.
 
