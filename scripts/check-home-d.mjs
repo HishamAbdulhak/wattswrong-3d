@@ -26,10 +26,12 @@ run(html.slice(html.indexOf('function material('), html.indexOf('// ============
 run(html.slice(html.indexOf('function updateStatus('), html.indexOf('// Cheap per-frame')));
 run(html.slice(html.indexOf('function disposeInterior('), html.indexOf('function leaveHome(')));
 run(`for(const name of ['tile','wood','trim','plaster','steel','dark','roof','white','black','ceramic','fabric','fabricBlue','rug','door','glass','bark','leaf'])M[name]=material('#aaaaaa');
-const h={id:Data.siteAt(3),root:new THREE.Group()};
-const channels=Data.site(h.id).channels;
-assert(hasGarage(h.id));assert(!hasGarage(null));
+assert(!hasGarage(null));
 for(const i of [0,1])assert(!hasGarage(Data.siteAt(i)));
+for(const siteIndex of [2,3]){
+const h={id:Data.siteAt(siteIndex),root:new THREE.Group()};
+const channels=Data.site(h.id).channels;
+assert(hasGarage(h.id));
 const exterior=garageExterior(h.root,M.plaster);
 assert(exterior.children.length<10,'roller slats should be batched');
 for(let iteration=0;iteration<3;iteration++){
@@ -38,15 +40,19 @@ for(let iteration=0;iteration<3;iteration++){
  assert.equal(garage.parent,interior.ground);
  assert.deepEqual(objects.filter(o=>o.channel).map(o=>o.channel).sort(),[...channels].sort());
  const garageObjects=objects.filter(o=>o.root.parent===garage);
- assert.deepEqual(garageObjects.map(o=>o.channel).sort(),['garage_freezer','garage_fridge']);
+ assert.deepEqual(garageObjects.map(o=>o.channel).sort(),siteIndex===2?['chest_freezer']:['garage_freezer','garage_fridge']);
  assert.equal(objects.find(o=>o.channel==='fridge_freezer').root.parent,rooms.find(r=>r.name==='Kitchen · dining').g);
+ if(siteIndex===2){
+  assert.equal(objects.find(o=>o.channel==='kmix').root.parent,rooms.find(r=>r.name==='Kitchen · dining').g);
+  assert.equal(objects.filter(o=>o.channel==='chest_freezer').length,1);
+ }
  root.scale.setScalar(1.5);root.updateMatrixWorld(true);
  assert.equal(garage.getWorldScale(new THREE.Vector3()).x,1.5);
  for(const channel of channels){
   const f=Data.findings.find(f=>f.site===h.id&&f.channel===channel);
   const s=statuses.find(s=>s.object.channel===channel);
-  Data.time=f.detected;updateStatus();assert(s.level>0);
-  for(const mesh of s.body){assert(mesh.material.emissiveIntensity>0);assert.equal(mesh.material.emissive.getHexString(),new THREE.Color(COLORS[s.level]).getHexString());assert(!sharedMaterials.has(mesh.material));}
+  if(f){Data.time=f.detected;updateStatus();assert(s.level>0);
+  for(const mesh of s.body){assert(mesh.material.emissiveIntensity>0);assert.equal(mesh.material.emissive.getHexString(),new THREE.Color(COLORS[s.level]).getHexString());assert(!sharedMaterials.has(mesh.material));}}
   Data.time=Data.start;updateStatus();assert.equal(s.level,0);
   for(const mesh of s.body)assert.equal(mesh.material.emissiveIntensity,0);
  }
@@ -59,10 +65,11 @@ for(let iteration=0;iteration<3;iteration++){
  assert.equal(exterior.parent,h.root);
  for(const resource of shared)resource.removeEventListener('dispose',fail);
 }
-for(let i=0;i<3;i++){
+}
+for(let i=0;i<2;i++){
  buildInterior({id:Data.siteAt(i),root:new THREE.Group()});
- assert.equal(!!interior.garage,i===2);
- const expected=[['aggregate','electric_heater','freezer_1','freezer_2','fridge'],['aggregate','freezer','fridge_freezer'],['aggregate','chest_freezer','fridge_freezer','kmix']][i];
+ assert.equal(!!interior.garage,false);
+ const expected=[['aggregate','electric_heater','freezer_1','freezer_2','fridge'],['aggregate','freezer','fridge_freezer']][i];
  assert.deepEqual(objects.filter(o=>o.channel).map(o=>o.channel).sort(),expected);
  disposeInterior();
 }
@@ -70,5 +77,5 @@ for(let i=0;i<3;i++){
 // so hiding/restoring a nearby tree never leaves detached branches visible.
 tree(world,28,-7);const treeRoot=world.children.at(-1),parts=[...treeRoot.children];
 batch(world);assert(parts.every(part=>part.parent===treeRoot));
-console.log('PASS: channel placement, batching, scaling, real replay tint/reset, three build/dispose cycles, and A/B/C layouts');
+console.log('PASS: Home C and D channel placement, batching, scaling, real replay tint/reset, three build/dispose cycles, and A/B layouts');
 `);
