@@ -326,7 +326,10 @@ def final(rerun_reason=None, output_root=None, input_root=None):
         forecast += forecast_metrics(P, pred, v_end, x_end)
         w = (P["idx"] >= v_end) & (P["idx"] < x_end)
         exposure[(site, ch)] = int((w & np.isfinite(z)).sum())
-        spreads[f"{site}/{ch}"] = {"per_local_hour": [round(float(x), 5) for x in P["spread"]], "overall_mad": P["spread_overall"]}
+        # No usable out-of-sample residuals (e.g. a labelled event covers the hold-out) leaves overall NaN; the
+        # per-hour spread then sits at the floor. JSON has no NaN, so export it as null.
+        overall = P["spread_overall"] if np.isfinite(P["spread_overall"]) else None
+        spreads[f"{site}/{ch}"] = {"per_local_hour": [round(float(x), 5) for x in P["spread"]], "overall_mad": overall}
     det, merged = evaluate_window(findings, events, v_end, x_end, exposure)
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
