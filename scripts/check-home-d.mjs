@@ -29,7 +29,7 @@ run(`for(const name of ['tile','wood','trim','plaster','steel','dark','roof','wh
 const h={id:Data.siteAt(3),root:new THREE.Group()};
 const channels=Data.site(h.id).channels;
 assert(hasGarage(h.id));assert(!hasGarage(null));
-for(let i=0;i<3;i++)assert(!hasGarage(Data.siteAt(i)));
+for(const i of [0,1])assert(!hasGarage(Data.siteAt(i)));
 const exterior=garageExterior(h.root,M.plaster);
 assert(exterior.children.length<10,'roller slats should be batched');
 for(let iteration=0;iteration<3;iteration++){
@@ -61,8 +61,8 @@ for(let iteration=0;iteration<3;iteration++){
 }
 for(let i=0;i<3;i++){
  buildInterior({id:Data.siteAt(i),root:new THREE.Group()});
- assert.equal(interior.garage,null);assert(!rooms.some(r=>r.name==='Garage'));
- const expected=[['aggregate','electric_heater','freezer_1','freezer_2','fridge'],['aggregate','freezer','fridge_freezer'],['aggregate','fridge_freezer']][i];
+ assert.equal(!!interior.garage,i===2);
+ const expected=[['aggregate','electric_heater','freezer_1','freezer_2','fridge'],['aggregate','freezer','fridge_freezer'],['aggregate','chest_freezer','fridge_freezer','kmix']][i];
  assert.deepEqual(objects.filter(o=>o.channel).map(o=>o.channel).sort(),expected);
  disposeInterior();
 }
