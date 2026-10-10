@@ -1,6 +1,6 @@
 # WattsWrong 3D
 
-A browser 3D historical replay of WattsWrong findings for two real REFIT homes, for householders to explore what was found, what it cost and what to check.
+A browser 3D historical replay of WattsWrong findings for four real REFIT homes, for householders to explore what was found, what it cost and what to check.
 
 ## Where usage is measured
 
