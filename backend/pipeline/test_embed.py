@@ -50,3 +50,13 @@ def test_refuses_a_repeated_hour(tmp_path):
     with pytest.raises(AssertionError):
         embed(tmp_path, page)
     assert page.read_text() == HTML
+
+
+def test_leaves_the_rest_of_the_page_byte_for_byte(tmp_path):
+    # The real page has non-ASCII text ("←" is e2 86 90 in UTF-8) and may be checked out with CRLF.
+    page = exports(tmp_path, [row("2014-01-01T00:00:00+00:00", 0.1, 0.01)])
+    original = HTML.replace("<head>", "<head><title>Replay – ← → UK time</title>").replace("\n", "\r\n").encode("utf-8")
+    page.write_bytes(original)
+    embed(tmp_path, page)
+    outside = lambda raw: re.sub(rb'(id="wattswrong-(?:data|series)">).*?(</script>)', rb"\1\2", raw, flags=re.S)
+    assert outside(page.read_bytes()) == outside(original)
