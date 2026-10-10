@@ -18,9 +18,9 @@ Verification is manual in a browser, plus the console API: `window.WattsWrong.ge
 
 ## Offline backend
 
-From `backend/`, run `uv sync --locked`, then `uv run --locked python -m pytest -q pipeline`. Rebuild hourly inputs with `uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House1.csv house1` and the corresponding House 3, 10 and 18 commands. Raw-file sources and MD5s are in README "Offline backend".
+From `backend/`, run `uv sync --locked`, then `uv run --locked python -m pytest -q pipeline`. Rebuild hourly inputs with `uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House1.csv house1` and the corresponding House 3, 10 and 18 commands. Check the exports with `uv run --locked python -m pipeline.validate`. Raw-file sources and MD5s are in README "Offline backend".
 
-The pipeline, tests, contracts, config and ADRs 0001–0013 are forked from commit `b57cde9`. All runtime paths resolve inside `backend/`; nothing depends on another checkout. Preserve the frozen config. Never run `pipeline.run tune`, and never re-run `pipeline.run final`: the frozen run over four sites is done, its lock is `reports/metrics_final.json`, and any re-run needs the owner's go-ahead and a logged `--rerun-reason` (ADR 0011). Its exports are in `backend/web/public/data/`; `pipeline.embed` validates them and writes them into `index.html`.
+Layout: `pipeline/` (ingest, `sites.py` site and channel maps, labels, model, `run.py`, evaluate, validate, `embed.py`, and their `test_*.py`), `contracts/` (locked JSON schemas), `config/config.json` (frozen), `docs/adr/` (ADRs 0001–0014), `reports/` (the run's lock, matches and the disclosed crashed first attempt), `artifacts/<run_id>/` (parquet copies) and `web/public/data/` (the exports the app embeds). Raw data and hourly intermediates under `data/` are git-ignored. All runtime paths resolve inside `backend/`; nothing depends on another checkout. `.vercelignore` keeps `backend/` out of the deployment. Preserve the frozen config. Never run `pipeline.run tune`, and never re-run `pipeline.run final`: the frozen run over four sites is done, its lock is `reports/metrics_final.json`, and any re-run needs the owner's go-ahead and a logged `--rerun-reason` (ADR 0011). Its exports are in `backend/web/public/data/`; `pipeline.embed` validates them and writes them into `index.html`.
 
 ## Architecture of `index.html`
 
@@ -33,14 +33,9 @@ The JS is minified-style (one function per line, no whitespace) inside one `<scr
 5. **View controller / accessible HTML** — interaction is click-only: hover never opens a card; `choose()` shows a card on first click; a second click on the same home enters it, on the same meter opens the dashboard (`#dash`, `openDash`/`renderDash`, plain HTML + SVG so it works without WebGL). The dashboard and the `#recap` story read `Data.focus` (incl. `highlights`), `Data.history`/`Data.dayLevels` (calm streak calendar), `Data.splits`, `Data.recap`, `Data.chart` and the view window `Data.from`/`Data.to` (`setRange`). Playback calls the cheap `updateClock()` every frame and the full `updateUI()` about 10×/s. tooltips, placards, timeline, table, keyboard routes. `reinitialize()` runs after every `WattsWrong.load`; `updateUI()` after time changes.
 6. **Rendering** — two composers: `bloomComposer` renders the scene with non-bloom meshes swapped to `darkMaterial` (selective bloom via `userData.bloom`), then `composer` does scene + SSAO + bloom composite + FXAA. Graphics quality `high` ("Sharper") vs `balanced` ("Faster") is set in `setQuality`. `renderSelective()` runs every frame, so avoid per-frame allocations and full-scene traversals there.
 
-Homes come from the manifest: its sites fill Homes A–D in order (`HOMES`, `Data.siteAt`, `bindHomes()` after every load), and a home without a site shows the no-data placard. The embedded run has four sites: A = REFIT House 1, B = House 3, C = House 10, D = House 18. Homes C and D still use the generic interior. Never add per-site checks (`id==='house1'`): interiors place metered appliances by the site's channels (`has(ch)` in `buildInterior`).
+Homes come from the manifest: its sites fill Homes A–D in order (`HOMES`, `Data.siteAt`, `bindHomes()` after every load), and a home without a site shows the no-data placard. The embedded run has four sites, so all four homes have data: A = REFIT House 1, B = House 3, C = House 10, D = House 18. A meter whose channel `buildInterior` has no appliance builder for gets no 3D appliance; it still appears in the meter table, timeline and dashboards. At present that applies to Home C's chest freezer and Kenwood kMix, and to Home D's garage fridge and garage freezer, whose attached garage is not built yet. When you add a builder for one of them, update this list. Never add per-site checks (`id==='house1'`): interiors place metered appliances by the site's channels (`has(ch)` in `buildInterior`).
 
 Use the terms in `GLOSSARY.md` for UI copy (e.g. finding, detection strength, extra cost, confirmation time); never add emoji to the interface.
-
-## Other files
-
-- `DELIVERABLE.md` — a hand-made snapshot of `index.html` (fenced) plus the README. It does not regenerate itself and will drift from `index.html` after edits.
-- `WattsWrong-3D/` — an older duplicate copy of the project; untracked (in `.gitignore`).
 
 ## Agent skills
 
