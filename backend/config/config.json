@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "agreed": {
+    "tariff_sen_per_kwh": 44.4,
+    "tariff_label": "illustrative TNB domestic rate",
+    "bill_notice_delay_days": 15,
+    "confidence_high_min": 0.75,
+    "confidence_medium_min": 0.5,
+    "anomalous_row_score_min": 2,
+    "event_merge_gap_hours_strictly_less_than": 6,
+    "hit_followup_hours": 24,
+    "forecast_minimum_lag_hours": 24
+  },
+  "suggested": {
+    "period_minutes": 60,
+    "export_timezone": "UTC",
+    "projection_days": 30,
+    "tou_enabled": false,
+    "away_mode_enabled": true,
+    "weather_enabled": false,
+    "source_timezone": "Europe/London",
+    "train_end": "2014-08-25T00:00:00+00:00",
+    "validation_end": "2015-01-31T00:00:00+00:00",
+    "test_end": "2015-05-31T00:00:00+00:00",
+    "persistence_periods": 6,
+    "recovery_periods": 3,
+    "residual_spread_method": "per-local-hour 1.4826*MAD of out-of-sample train residuals",
+    "residual_spread_floor": 0.005,
+    "label_timezone": "UTC",
+    "persistence_window": 24,
+    "continuation_score_min": 1.5,
+    "lgbm_objective": "l1",
+    "use_four_week_median": false,
+    "detection_score_min": 3.0,
+    "away_return_days": 7
+  },
+  "evidence_status": "frozen_before_test",
+  "contains_data_rows": false
+}

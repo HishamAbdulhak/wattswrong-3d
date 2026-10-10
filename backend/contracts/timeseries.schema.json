@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:wattswrong:timeseries:1",
+  "title": "timeseries",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "site_id",
+      "channel",
+      "ts",
+      "actual_kwh",
+      "predicted_kwh",
+      "residual_kwh",
+      "anomaly_score",
+      "is_anomalous"
+    ],
+    "properties": {
+      "site_id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string; One per home"
+      },
+      "channel": {
+        "type": "string",
+        "minLength": 1,
+        "description": "string; Or an appliance: fridge, freezer, washing_machine"
+      },
+      "ts": {
+        "type": "string",
+        "format": "date-time",
+        "description": "ISO 8601 with timezone; Start of the period"
+      },
+      "actual_kwh": {
+        "type": "number",
+        "minimum": 0,
+        "description": "float; Measured"
+      },
+      "predicted_kwh": {
+        "type": "number",
+        "description": "float; Day-ahead forecast"
+      },
+      "residual_kwh": {
+        "type": "number",
+        "description": "float; actual minus predicted"
+      },
+      "anomaly_score": {
+        "type": "number",
+        "description": "float; Residual divided by its typical spread"
+      },
+      "is_anomalous": {
+        "type": "boolean",
+        "description": "bool; After the persistence rule"
+      }
+    }
+  }
+}
