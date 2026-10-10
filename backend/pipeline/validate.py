@@ -21,7 +21,7 @@ def _reject_constant(name):
 
 def load_json(path):
     # Python's json accepts NaN/Infinity by default; the contract forbids them.
-    return json.loads(Path(path).read_text(), parse_constant=_reject_constant)
+    return json.loads(Path(path).read_text(encoding="utf-8"), parse_constant=_reject_constant)
 
 
 def schema_errors(name, rows):

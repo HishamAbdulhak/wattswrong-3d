@@ -8,6 +8,7 @@ wattswrong-series: compact form keyed "site/channel": runs of consecutive hours
 predicted = actual - residual.
 """
 import json
+import os
 import re
 import sys
 from datetime import datetime
@@ -34,9 +35,11 @@ def compact(rows):
     count = 0
     for k, s in series.items():
         hours = [h0 + i for h0, n in s["runs"] for i in range(n)]
-        assert len(hours) == len(s["a"]) == len(s["r"]) == len(set(hours)), f"{k}: repeated or lost hours"
+        if not len(hours) == len(s["a"]) == len(s["r"]) == len(set(hours)):
+            raise ValueError(f"{k}: repeated or lost hours")
         count += len(hours)
-    assert count == len(rows), "rows lost"
+    if count != len(rows):
+        raise ValueError("rows lost")
     return series
 
 
@@ -44,7 +47,8 @@ def replace_block(html, tag, value):
     payload = json.dumps(value, separators=(",", ":")).replace("</", "<\\/")
     html, n = re.subn(rf'(<script type="application/json" id="{tag}">).*?(</script>)',
                       lambda m: m.group(1) + payload + m.group(2), html, count=1, flags=re.S)
-    assert n == 1, f"no {tag} block in the app"
+    if n != 1:
+        raise ValueError(f"no {tag} block in the app")
     return html
 
 
@@ -53,13 +57,17 @@ def embed(data_dir, app=APP):
     read = lambda name: json.loads((data_dir / name).read_text(encoding="utf-8"))
     rows = read("timeseries.json")
     series = compact(rows)
-    # UTF-8 whatever the platform's default, and newline="" so the page's line endings are kept.
-    with open(app, encoding="utf-8", newline="") as f:
-        html = f.read()
+    # Bytes in and out, so the page stays UTF-8 and keeps its line endings on every platform.
+    html = Path(app).read_bytes().decode("utf-8")
     html = replace_block(html, "wattswrong-data", {"manifest": read("manifest.json"), "findings": read("findings.json")})
     html = replace_block(html, "wattswrong-series", series)
-    with open(app, "w", encoding="utf-8", newline="") as f:
-        f.write(html)
+    # Write a sibling file, then swap it in, so a failed write never leaves a half-written page.
+    tmp = Path(app).with_name(Path(app).name + ".tmp")
+    try:
+        tmp.write_bytes(html.encode("utf-8"))
+        os.replace(tmp, app)
+    finally:
+        tmp.unlink(missing_ok=True)
     return len(rows), len(series)
 
 
