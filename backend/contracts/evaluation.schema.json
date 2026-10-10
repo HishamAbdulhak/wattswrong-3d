@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:wattswrong:evaluation:1",
+  "title": "evaluation",
+  "description": "Post-hoc evaluation of the frozen day-ahead forecasts against the named baselines (docs/adr/0013). Written by pipeline.posthoc; mirrored by the Evaluation type in web/src/lib.ts. Every null metric carries a reason.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["provenance", "split", "comparison", "monthly", "example_days", "site_facts"],
+  "$defs": {
+    "metric": { "type": ["number", "null"], "minimum": 0 },
+    "row": {
+      "type": "object",
+      "required": ["site_id", "channel", "window", "model", "mae_kwh", "rmse_kwh", "wape", "scored_periods", "reason"],
+      "properties": {
+        "site_id": { "type": "string", "minLength": 1 },
+        "channel": { "type": "string", "minLength": 1, "description": "aggregate (whole-house meter) or an appliance meter" },
+        "window": { "enum": ["validation", "test"] },
+        "model": { "enum": ["lightgbm", "weekly_naive", "daily_naive", "four_week_mean"] },
+        "mae_kwh": { "$ref": "#/$defs/metric" },
+        "rmse_kwh": { "$ref": "#/$defs/metric" },
+        "wape": { "$ref": "#/$defs/metric", "description": "sum |error| / sum actual over the hours every model shares" },
+        "scored_periods": { "type": "integer", "minimum": 0 },
+        "reason": { "type": ["string", "null"], "description": "why a metric is null; null when none is" }
+      },
+      "if": { "properties": { "reason": { "type": "null" } } },
+      "then": { "properties": { "mae_kwh": { "type": "number" }, "rmse_kwh": { "type": "number" }, "wape": { "type": "number" } } }
+    }
+  },
+  "properties": {
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["run_id", "code_revision", "config_sha256_12", "evaluation_revision"],
+      "properties": {
+        "run_id": { "type": "string", "minLength": 1, "description": "frozen final run whose forecasts are evaluated" },
+        "code_revision": { "type": "string", "minLength": 1, "description": "code that produced the frozen run" },
+        "config_sha256_12": { "type": "string", "minLength": 12, "maxLength": 12 },
+        "evaluation_revision": { "type": "string", "minLength": 1, "description": "code that computed this evaluation" }
+      }
+    },
+    "split": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["train_end", "validation_end", "test_end"],
+      "properties": {
+        "train_end": { "type": "string", "format": "date-time" },
+        "validation_end": { "type": "string", "format": "date-time" },
+        "test_end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "comparison": {
+      "type": "array",
+      "items": { "allOf": [{ "$ref": "#/$defs/row" }], "unevaluatedProperties": false }
+    },
+    "monthly": {
+      "type": "array",
+      "items": {
+        "allOf": [{ "$ref": "#/$defs/row" }],
+        "required": ["month"],
+        "properties": { "month": { "type": "string", "pattern": "^\\d{4}-\\d{2}$", "description": "local (Europe/London) YYYY-MM" } },
+        "unevaluatedProperties": false
+      }
+    },
+    "example_days": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["site_id", "kind", "date", "wape", "best_baseline", "hours"],
+        "properties": {
+          "site_id": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["typical", "struggles"] },
+          "date": { "type": "string", "format": "date", "description": "local (Europe/London) calendar day" },
+          "wape": { "type": "number", "minimum": 0 },
+          "best_baseline": { "enum": ["weekly_naive", "daily_naive", "four_week_mean"] },
+          "hours": {
+            "type": "array",
+            "minItems": 24,
+            "maxItems": 24,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["ts", "actual_kwh", "forecast_kwh", "baseline_kwh", "residual_kwh"],
+              "properties": {
+                "ts": { "type": "string", "format": "date-time" },
+                "actual_kwh": { "type": ["number", "null"] },
+                "forecast_kwh": { "type": ["number", "null"] },
+                "baseline_kwh": { "type": ["number", "null"] },
+                "residual_kwh": { "type": ["number", "null"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "site_facts": {
+      "type": "array",
+      "description": "Per site and split, whole-house load summaries over all exported hours (not gap-filled). Near-zero means actual <= the stated threshold. Weekly-naive WAPE and its separate denominator come from comparison. Hashes normalize CRLF to LF.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["site_id", "channel", "window", "start_ts", "end_ts", "observed_periods", "mean_load_kwh_per_hour", "near_zero_threshold_kwh", "near_zero_periods", "near_zero_share", "load_reason", "weekly_naive_wape", "weekly_naive_scored_periods", "weekly_naive_reason", "timeseries_sha256"],
+        "properties": {
+          "site_id": { "type": "string", "minLength": 1 },
+          "channel": { "const": "aggregate" },
+          "window": { "enum": ["validation", "test"] },
+          "start_ts": { "type": "string", "format": "date-time" },
+          "end_ts": { "type": "string", "format": "date-time" },
+          "observed_periods": { "type": "integer", "minimum": 0 },
+          "mean_load_kwh_per_hour": { "$ref": "#/$defs/metric" },
+          "near_zero_threshold_kwh": { "type": "number", "minimum": 0 },
+          "near_zero_periods": { "type": "integer", "minimum": 0 },
+          "near_zero_share": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+          "load_reason": { "type": ["string", "null"] },
+          "weekly_naive_wape": { "$ref": "#/$defs/metric" },
+          "weekly_naive_scored_periods": { "type": "integer", "minimum": 0 },
+          "weekly_naive_reason": { "type": ["string", "null"] },
+          "timeseries_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        },
+        "allOf": [
+          { "if": { "properties": { "load_reason": { "type": "null" } } },
+            "then": { "properties": { "observed_periods": { "minimum": 1 }, "mean_load_kwh_per_hour": { "type": "number" }, "near_zero_share": { "type": "number" } } } },
+          { "if": { "properties": { "weekly_naive_reason": { "type": "null" } } },
+            "then": { "properties": { "weekly_naive_wape": { "type": "number" } } } }
+        ]
+      }
+    }
+  }
+}
