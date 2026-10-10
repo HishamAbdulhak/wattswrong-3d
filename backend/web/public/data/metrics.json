@@ -1,0 +1,592 @@
+{
+ "run_id": "20261010T190414Z",
+ "source": "real",
+ "code_revision": "f18f389",
+ "config_sha256_12": "d3020c3ee48d",
+ "split": {
+  "train_end": "2014-08-25 00:00:00+00:00",
+  "validation_end": "2015-01-31 00:00:00+00:00",
+  "test_end": "2015-05-31 00:00:00+00:00"
+ },
+ "forecast": [
+  {
+   "site_id": "house1",
+   "channel": "aggregate",
+   "model": "baseline",
+   "mae_kwh": 0.31148747731506515,
+   "wape": 0.5797401846373281,
+   "valid_periods": 1849,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "aggregate",
+   "model": "lightgbm",
+   "mae_kwh": 0.28822188835415713,
+   "wape": 0.5364382934789556,
+   "valid_periods": 1849,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "fridge",
+   "model": "baseline",
+   "mae_kwh": 0.020381403888006588,
+   "wape": 1.2172271555763834,
+   "valid_periods": 1889,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "fridge",
+   "model": "lightgbm",
+   "mae_kwh": 0.016123187977360513,
+   "wape": 0.962916114529997,
+   "valid_periods": 1889,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "freezer_1",
+   "model": "baseline",
+   "mae_kwh": 0.003513730221751662,
+   "wape": 0.23362837276635767,
+   "valid_periods": 1889,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "freezer_1",
+   "model": "lightgbm",
+   "mae_kwh": 0.002866579439994621,
+   "wape": 0.19059923434804132,
+   "valid_periods": 1889,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "freezer_2",
+   "model": "baseline",
+   "mae_kwh": 0.009905144774011299,
+   "wape": 0.34970176783946283,
+   "valid_periods": 1888,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "freezer_2",
+   "model": "lightgbm",
+   "mae_kwh": 0.007327588803057787,
+   "wape": 0.2587009899293208,
+   "valid_periods": 1888,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "washing_machine",
+   "model": "baseline",
+   "mae_kwh": 0.026738940944650316,
+   "wape": 1.7444402169053723,
+   "valid_periods": 1889,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "washing_machine",
+   "model": "lightgbm",
+   "mae_kwh": 0.015330339234687901,
+   "wape": 1.000146578548107,
+   "valid_periods": 1889,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "electric_heater",
+   "model": "baseline",
+   "mae_kwh": 0.10629957235280152,
+   "wape": 0.9967871305750301,
+   "valid_periods": 1872,
+   "reason": null
+  },
+  {
+   "site_id": "house1",
+   "channel": "electric_heater",
+   "model": "lightgbm",
+   "mae_kwh": 0.07595139682599919,
+   "wape": 0.7122077091155665,
+   "valid_periods": 1872,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "aggregate",
+   "model": "baseline",
+   "mae_kwh": 0.39188113369576977,
+   "wape": 0.5939887482361283,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "aggregate",
+   "model": "lightgbm",
+   "mae_kwh": 0.2972625011849251,
+   "wape": 0.45057178259939357,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "fridge_freezer",
+   "model": "baseline",
+   "mae_kwh": 0.044264422400735685,
+   "wape": 0.8735911028434384,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "fridge_freezer",
+   "model": "lightgbm",
+   "mae_kwh": 0.03383799482693363,
+   "wape": 0.6678178459272115,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "freezer",
+   "model": "baseline",
+   "mae_kwh": 0.016839723574596992,
+   "wape": 0.5275832362119028,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "freezer",
+   "model": "lightgbm",
+   "mae_kwh": 0.013538145087052799,
+   "wape": 0.4241458219722899,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "dishwasher",
+   "model": "baseline",
+   "mae_kwh": 0.09294518243535647,
+   "wape": 1.7863450447836686,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "dishwasher",
+   "model": "lightgbm",
+   "mae_kwh": 0.05203277720278662,
+   "wape": 1.000035626237824,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "tumble_dryer",
+   "model": "baseline",
+   "mae_kwh": 0.09813929460131993,
+   "wape": 1.8013916467198603,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house3",
+   "channel": "tumble_dryer",
+   "model": "lightgbm",
+   "mae_kwh": 0.05454388631360698,
+   "wape": 1.0011779846606708,
+   "valid_periods": 2054,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "aggregate",
+   "model": "baseline",
+   "mae_kwh": 0.4349578341511859,
+   "wape": 0.6550959122254131,
+   "valid_periods": 1902,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "aggregate",
+   "model": "lightgbm",
+   "mae_kwh": 0.34757212328415044,
+   "wape": 0.5234831040836271,
+   "valid_periods": 1902,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "chest_freezer",
+   "model": "baseline",
+   "mae_kwh": 0.018929123166154894,
+   "wape": 0.4313833988652831,
+   "valid_periods": 1954,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "chest_freezer",
+   "model": "lightgbm",
+   "mae_kwh": 0.018609118010286106,
+   "wape": 0.4240906727003483,
+   "valid_periods": 1954,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "fridge_freezer",
+   "model": "baseline",
+   "mae_kwh": 0.01168444035740459,
+   "wape": 0.3669994400154417,
+   "valid_periods": 1971,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "fridge_freezer",
+   "model": "lightgbm",
+   "mae_kwh": 0.010622056620411319,
+   "wape": 0.3336307698325381,
+   "valid_periods": 1971,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "dishwasher",
+   "model": "baseline",
+   "mae_kwh": 0.03671752325384745,
+   "wape": 1.516090735216625,
+   "valid_periods": 1971,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "dishwasher",
+   "model": "lightgbm",
+   "mae_kwh": 0.025196972808059413,
+   "wape": 1.0403996142577838,
+   "valid_periods": 1971,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "kmix",
+   "model": "baseline",
+   "mae_kwh": 0.0002300539771125768,
+   "wape": 1.5815081174351673,
+   "valid_periods": 1971,
+   "reason": null
+  },
+  {
+   "site_id": "house10",
+   "channel": "kmix",
+   "model": "lightgbm",
+   "mae_kwh": 0.0001454649360166864,
+   "wape": 1.0,
+   "valid_periods": 1971,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "aggregate",
+   "model": "baseline",
+   "mae_kwh": 0.16474147604327666,
+   "wape": 0.38670715604340483,
+   "valid_periods": 1941,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "aggregate",
+   "model": "lightgbm",
+   "mae_kwh": 0.1487175881674713,
+   "wape": 0.349093361035381,
+   "valid_periods": 1941,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "garage_freezer",
+   "model": "baseline",
+   "mae_kwh": 0.011146157478962734,
+   "wape": 0.23284130897233915,
+   "valid_periods": 1941,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "garage_freezer",
+   "model": "lightgbm",
+   "mae_kwh": 0.010897561061748905,
+   "wape": 0.2276481726561556,
+   "valid_periods": 1941,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "garage_fridge",
+   "model": "baseline",
+   "mae_kwh": 0.010621592392237679,
+   "wape": 0.7840918105555214,
+   "valid_periods": 1941,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "garage_fridge",
+   "model": "lightgbm",
+   "mae_kwh": 0.012325847684157756,
+   "wape": 0.909900876479291,
+   "valid_periods": 1941,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "fridge_freezer",
+   "model": "baseline",
+   "mae_kwh": 0.01625692884538325,
+   "wape": 0.25593927607331735,
+   "valid_periods": 1941,
+   "reason": null
+  },
+  {
+   "site_id": "house18",
+   "channel": "fridge_freezer",
+   "model": "lightgbm",
+   "mae_kwh": 0.010673231753504951,
+   "wape": 0.16803291903012585,
+   "valid_periods": 1941,
+   "reason": null
+  }
+ ],
+ "detection": [
+  {
+   "scope": "all sites, all channels (appliance or whole-house finding)",
+   "eligible_events": 37,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 11,
+   "findings": 67,
+   "matched_findings": 11,
+   "recall": 0.2972972972972973,
+   "precision": 0.16417910447761194,
+   "median_delay_hours": 7.333333333333333,
+   "unmatched_per_house_month": 5.193868349864743,
+   "exposure_months": 10.781944444444445,
+   "reason": null
+  },
+  {
+   "scope": "all sites, whole-house meter only",
+   "eligible_events": 37,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 4,
+   "findings": 46,
+   "matched_findings": 4,
+   "recall": 0.10810810810810811,
+   "precision": 0.08695652173913043,
+   "median_delay_hours": 26.5,
+   "unmatched_per_house_month": 3.895401262398557,
+   "exposure_months": 10.781944444444445,
+   "reason": null
+  },
+  {
+   "scope": "house1 fridge",
+   "eligible_events": 1,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 0,
+   "matched_findings": 0,
+   "recall": 0.0,
+   "precision": null,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.623611111111111,
+   "reason": null
+  },
+  {
+   "scope": "house1 freezer_1",
+   "eligible_events": 0,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 0,
+   "matched_findings": 0,
+   "recall": null,
+   "precision": null,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.623611111111111,
+   "reason": "no eligible labelled events in window"
+  },
+  {
+   "scope": "house1 freezer_2",
+   "eligible_events": 5,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 3,
+   "findings": 3,
+   "matched_findings": 3,
+   "recall": 0.6,
+   "precision": 1.0,
+   "median_delay_hours": 6.0,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.6222222222222222,
+   "reason": null
+  },
+  {
+   "scope": "house1 electric_heater",
+   "eligible_events": 1,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 4,
+   "matched_findings": 0,
+   "recall": 0.0,
+   "precision": 0.0,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 1.534363345764518,
+   "exposure_months": 2.6069444444444443,
+   "reason": null
+  },
+  {
+   "scope": "house3 fridge_freezer",
+   "eligible_events": 4,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 0,
+   "matched_findings": 0,
+   "recall": 0.0,
+   "precision": null,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.852777777777778,
+   "reason": null
+  },
+  {
+   "scope": "house3 freezer",
+   "eligible_events": 7,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 3,
+   "findings": 4,
+   "matched_findings": 3,
+   "recall": 0.42857142857142855,
+   "precision": 0.75,
+   "median_delay_hours": 4.0,
+   "unmatched_per_house_month": 0.3505355404089581,
+   "exposure_months": 2.852777777777778,
+   "reason": null
+  },
+  {
+   "scope": "house10 chest_freezer",
+   "eligible_events": 10,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 3,
+   "matched_findings": 0,
+   "recall": 0.0,
+   "precision": 0.0,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 1.1048593350383633,
+   "exposure_months": 2.7152777777777777,
+   "reason": null
+  },
+  {
+   "scope": "house10 fridge_freezer",
+   "eligible_events": 1,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 0,
+   "matched_findings": 0,
+   "recall": 0.0,
+   "precision": null,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.7375,
+   "reason": null
+  },
+  {
+   "scope": "house10 kmix",
+   "eligible_events": 0,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 0,
+   "matched_findings": 0,
+   "recall": null,
+   "precision": null,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.7375,
+   "reason": "no eligible labelled events in window"
+  },
+  {
+   "scope": "house18 garage_freezer",
+   "eligible_events": 4,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 1,
+   "findings": 1,
+   "matched_findings": 1,
+   "recall": 0.25,
+   "precision": 1.0,
+   "median_delay_hours": 5.0,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.6958333333333333,
+   "reason": null
+  },
+  {
+   "scope": "house18 garage_fridge",
+   "eligible_events": 0,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 6,
+   "matched_findings": 0,
+   "recall": null,
+   "precision": 0.0,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 2.2256568778979906,
+   "exposure_months": 2.6958333333333333,
+   "reason": "no eligible labelled events in window"
+  },
+  {
+   "scope": "house18 fridge_freezer",
+   "eligible_events": 3,
+   "censored_events": 0,
+   "straddling_excluded": 0,
+   "matched_events": 0,
+   "findings": 0,
+   "matched_findings": 0,
+   "recall": 0.0,
+   "precision": null,
+   "median_delay_hours": null,
+   "unmatched_per_house_month": 0.0,
+   "exposure_months": 2.6958333333333333,
+   "reason": null
+  }
+ ],
+ "notes": [
+  "Test window = validation_end to test_end, scored once; all settings were chosen on validation only.",
+  "Labels are REFIT annotations of unusual appliance behaviour (Rashid et al. 2019), not confirmed faults; annotation may be incomplete.",
+  "Exposure uses 30-day months of scored (valid) hours.",
+  "Merged labelled events in window are listed in reports/matches_final.json.",
+  "Re-run reason: First attempt (code 557fb17) scored the test window, wrote timeseries/findings/metrics, then crashed writing manifest.json: House 10 overall_mad was NaN. Fixed serialisation only (f18f389); no model, detector or config change. First attempt's outputs kept in reports/attempt1_crashed/."
+ ]
+}
