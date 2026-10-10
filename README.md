@@ -10,6 +10,33 @@
 - **Day / Week / Month / All** set the replay window to the day being replayed, the week or 30 days ending on it, or every date; **‹ ›** move it by its own length. The From / To dates also set the replay window: the slider, finding lanes and graphs follow it, and **Show only this finding's dates** sets it to a finding ±2 days. Graphs are hourly for windows up to 21 days, otherwise daily totals of recorded hours; up to 240 hours they draw one bar per hour, coloured inside a finding, against a dashed expected line. Each graph has a **kWh / RM** switch and a "What does this graph show?" note. A meter's detail leads with its extra cost, then the next step and possible causes as cards with a way to check each. Play covers the window in about a minute. **Pop out** pops the replay panel out into a floating widget over the page: move it by its top handle (drag, or focus it and use the arrow keys), resize it from its bottom-right corner, and press **Put back** or drag it back to the bottom edge (it outlines when it will snap) to put it back.
 - Graphics **Sharper** (`high`) enables SSAO, 2048-pixel sun shadows and a pixel ratio capped at 2. **Faster** (`balanced`) disables SSAO, uses 1024-pixel shadows and caps the pixel ratio at 1.25. Both use selective status bloom and FXAA.
 
+## Offline backend
+
+`backend/` is a one-way fork of the WattsWrong pipeline at commit `b57cde9`, with its own Python project and freshly generated `uv.lock`. It is independent and is never synced with its origin. Run all backend commands from that directory:
+
+```bash
+cd backend
+uv sync --locked
+uv run --locked python -m pytest -q pipeline
+uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House1.csv house1
+uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House3.csv house3
+```
+
+Python 3.12+ and `uv` are required. Ingest writes `data/interim/house1_hourly.parquet` and `house3_hourly.parquet`, plus `reports/quality_house1.json` and `quality_house3.json`, all relative to `backend/`. Raw inputs, hourly intermediates, quality reports and the virtual environment are git-ignored. Hourly files are rebuilt from raw CSVs, never copied.
+
+Place the following real source files under `backend/data/raw/`. REFIT downloads are individual cleaned CSVs; the annotation source supplies the labels and their readme. All four files are CC BY 4.0.
+
+| Raw file (relative to `backend/`) | MD5 | Download source |
+|---|---|---|
+| `data/raw/refit/CLEAN_House1.csv` | `f5336d80c700f866af0d997ea8d39146` | [REFIT House 1](https://zenodo.org/records/5063428/files/CLEAN_House1.csv?download=1) |
+| `data/raw/refit/CLEAN_House3.csv` | `ab6e34ea386eb4563bfcb9762619dc8f` | [REFIT House 3](https://zenodo.org/records/5063428/files/CLEAN_House3.csv?download=1) |
+| `data/raw/labels/REFIT_anomalies.csv` | `dd96a35285b2b207000650867ace10c2` | [REFIT anomaly annotations](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33) |
+| `data/raw/labels/README_ICASSP.txt` | `9d0bfaf94c936f215f3e86c357fd5221` | [Annotation readme](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33) |
+
+The fork includes ingest, site/channel maps, labels, model, run orchestration, evaluation and validation, with their five existing test files. The frozen config, locked JSON contracts and ADRs 0001–0013 are preserved verbatim alongside ADR 0014. Historical ADRs retain their original context; [GLOSSARY.md](GLOSSARY.md) governs this app's terminology. The web app, hosted-demo check, reproduction harness, post-hoc evaluation, site-facts tool and judging scripts are excluded.
+
+This extraction does **not** tune or score the test window. No frozen-run lock, reports or exports were imported. The inherited run and validator resolve paths inside `backend/`; their default export directory is `backend/web/public/data/` (a data-output directory, not a copied web app). A later ticket owns the new frozen run and embedding its exports. The static replay above continues to use its existing embedded data.
+
 ## Assets and licences
 
 All URLs, auxiliary maps and glTF dependencies are in the single `ASSETS` object at the beginning of the module. Replace these URLs with local equivalents to self-host. Texture sets include colour, normal, roughness and AO at 1K. The HDRI is 2K.

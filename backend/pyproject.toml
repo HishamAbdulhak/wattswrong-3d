@@ -1,0 +1,16 @@
+[project]
+name = "wattswrong-3d-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "jsonschema[format-nongpl]>=4.26.0",
+    "lightgbm>=4.7.0",
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "pyarrow>=26.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
