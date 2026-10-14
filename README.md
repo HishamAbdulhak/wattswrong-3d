@@ -36,7 +36,6 @@ REFIT raw CSVs ──► ingest ──► hourly series ──► LightGBM forec
 3. **Detect.** A finding is confirmed when enough high-scoring hours fall within a recent window. It ends after a run of normal hours. Confirmed anomalous hours are replaced by their forecast in the model's history, so a fault never becomes the new normal.
 4. **Cost.** Extra cost is the running sum of positive residuals × RM 0.444/kWh. Costs from different meters are never summed, because whole-home and appliance readings overlap.
 
-The design decisions behind each step are recorded in [`backend/docs/adr/`](backend/docs/adr/).
 
 ## Results
 
@@ -111,7 +110,6 @@ backend/
   pipeline/                 ingest, model, detection, evaluation, validation, embed (+ tests)
   config/config.json        frozen detector configuration
   contracts/                JSON schemas for the exports
-  docs/adr/                 architecture decision records
   reports/                  final metrics and event matches
   web/public/data/          the frozen run's exports
 ```
