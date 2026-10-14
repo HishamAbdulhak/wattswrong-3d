@@ -1,115 +1,130 @@
-# WattsWrong — browser 3D historical replay
+# WattsWrong 3D
 
-## Run
+**An interactive 3D replay of household electricity anomalies, built on nine months of real smart-meter data.**
 
-- Open `index.html` directly in a modern WebGL2 browser, or run `npx serve .` from this folder and open the printed address. The manifest, findings and the full hourly series are embedded, so graphs and **Extra cost so far** work either way; external three.js, font and optional visual assets need internet access. No build step is required.
-- The embedded series is a compact copy of the backend's `web/public/data/timeseries.json` (runs of consecutive hours, `actual_kwh` and `residual_kwh` per row, unchanged; forecast = actual − residual). `uv run --locked python -m pipeline.embed` (from `backend/`) validates the exports and re-embeds the manifest, findings and series; it checks every row is kept and every hour is unique per meter.
-- Homes with active findings show a **!** marker. Click a home once for its card and again to go inside; the home dashboard opens (meters, active findings, whole-house actual-vs-forecast graph). Click a meter once for its card and again (or double-click) for its detail: excess energy, excess cost, pattern, graph, possible causes and the next step. Drag to orbit and use Downstairs / Upstairs / Both floors. Tab and Enter operate the home and meter buttons. Escape closes the card, then the meter detail, then returns to the street. The table offers a separate keyboard route to every meter's detail.
-- **Replay recap** (header) plays a full-screen story of the whole replay: findings spotted, typical confirmation time, the largest finding that lasted under a week, the most common category and the longest calm streak, then buttons into each home. Slides advance every 5 s; tap the sides or use ←/→, Escape closes. Totals are finding counts or single findings, never costs summed across meters.
-- A home's dashboard opens with a status circle (findings right now and the whole-home extra cost), cards for each active finding, and a calm-streak calendar of the last four weeks; click a day to jump the replay there. A meter's detail adds highlights (confirmed within 6 hours of starting, largest on this meter, longest in this home) and **Day by day** bars of extra kWh per day, which add up to its extra energy so far. While a finding is active it also shows its **projected monthly extra cost**: the backend's formula (`pipeline/run.py`: extra energy so far ÷ recorded hours × 24 × 30 × tariff) applied at the replay hour. Ended findings show **Total extra cost** and no projection; projections are never added across meters.
-- **Day / Week / Month / All** set the replay window to the day being replayed, the week or 30 days ending on it, or every date; **‹ ›** move it by its own length. The From / To dates also set the replay window: the slider, finding lanes and graphs follow it, and **Show only this finding's dates** sets it to a finding ±2 days. Graphs are hourly for windows up to 21 days, otherwise daily totals of recorded hours; up to 240 hours they draw one bar per hour, coloured inside a finding, against a dashed expected line. Each graph has a **kWh / RM** switch and a "What does this graph show?" note. A meter's detail leads with its extra cost, then the next step and possible causes as cards with a way to check each. Play covers the window in about a minute. **Pop out** pops the replay panel out into a floating widget over the page: move it by its top handle (drag, or focus it and use the arrow keys), resize it from its bottom-right corner, and press **Put back** or drag it back to the bottom edge (it outlines when it will snap) to put it back.
-- Graphics **Sharper** (`high`) enables SSAO, 2048-pixel sun shadows and a pixel ratio capped at 2. **Faster** (`balanced`) disables SSAO, uses 1024-pixel shadows and caps the pixel ratio at 1.25. Both use selective status bloom and FXAA.
+WattsWrong forecasts what each meter in a home *should* use, flags sustained deviations as findings, and puts a price on them. This app replays those findings across a 3D street of four real UK homes (REFIT dataset, 2014–15). Walk into a home, see which appliance is misbehaving, how much it is costing and what to check next.
 
-## Offline backend
+![The street: four REFIT homes, with markers on those that have active findings](neighbourhood.jpg)
 
-`backend/` is a one-way fork of the WattsWrong pipeline at commit `b57cde9`, with its own Python project and freshly generated `uv.lock`. It is independent and is never synced with its origin. Run all backend commands from that directory. Python 3.12+ and `uv` are required.
+![Inside a home: metered appliances are tinted by their current status](interior.jpg)
 
-Test, validate the exports and re-embed them (no raw files needed):
+A [walkthrough video](wattswrong-walkthrough-720p-preview.mp4) and the [presentation deck](WattsWrong.pptx) are included in the repository.
+
+## Highlights
+
+- **Real data, scored blind.** 179 findings across 4 homes and 16 meters, produced by a single frozen run over a held-out test window. Nothing was tuned on test data.
+- **Explorable 3D scene.** A procedurally built neighbourhood with PBR materials, HDRI lighting, SSAO and selective bloom. Click a home to enter it; each metered appliance sits in its room and glows with its status.
+- **Plain-language dashboards.** Each home and meter has its extra cost so far, actual-versus-expected graphs (kWh or RM), possible causes with a way to check each, a calm-streak calendar and day-by-day breakdowns.
+- **Replay controls.** Scrub through time, play a window, or jump to Day, Week, Month or All. A full-screen recap tells the story of the whole replay.
+- **Accessible and resilient.** Every action is reachable by keyboard. If WebGL or the 3D engine is unavailable, the app falls back to a fully working table, timeline and dashboards.
+- **Zero build.** The entire app, including the 81,046-row hourly series, is a single `index.html`.
+
+## How it works
+
+```
+REFIT raw CSVs ──► ingest ──► hourly series ──► LightGBM forecast per meter
+                                                        │
+                                   residual ÷ robust spread = anomaly score
+                                                        │
+                           persistence rules ──► findings ──► validated JSON exports
+                                                                     │
+                                                       embedded in index.html ──► 3D replay
+```
+
+1. **Forecast.** One LightGBM regressor per meter predicts each hour's usage from features that are at least 24 hours old: hour, weekday, bank holidays, the same hour yesterday and last week, rolling means and a four-week median.
+2. **Score.** Each hour's residual is divided by a per-hour robust spread (1.4826 × MAD of out-of-sample residuals).
+3. **Detect.** A finding is confirmed when enough high-scoring hours fall within a recent window. It ends after a run of normal hours. Confirmed anomalous hours are replaced by their forecast in the model's history, so a fault never becomes the new normal.
+4. **Cost.** Extra cost is the running sum of positive residuals × RM 0.444/kWh. Costs from different meters are never summed, because whole-home and appliance readings overlap.
+
+The design decisions behind each step are recorded in [`backend/docs/adr/`](backend/docs/adr/).
+
+## Results
+
+Results come from the frozen run `20261010T190414Z`, which scored the test window of 31 Jan – 31 May 2015 once, over all four homes.
+
+| Scope | Labelled events found | Precision | Median time to detect | False alarms |
+|---|---|---|---|---|
+| All meters | 11 of 37 (30%) | 16% | 7.3 h | 5.2 per home per month |
+| Whole-home meter only | 4 of 37 (11%) | 9% | 26.5 h | 3.9 per home per month |
+
+Houses 10 and 18 were added after the method was fixed and were scored without any adjustment. Per-meter results and known data caveats are in [`backend/reports/metrics_final.json`](backend/reports/metrics_final.json). One example: House 10's fridge-freezer was replaced partway through the test window. The run's first attempt crashed while writing its output and was re-run once after a serialisation fix, producing bit-identical results. The re-run reason is logged in the metrics file.
+
+## Running the app
+
+Open `index.html` in any modern WebGL2 browser, or serve the folder:
+
+```bash
+npx serve .
+```
+
+All data is embedded, so the app works from `file://`. three.js, the font and the textures load from CDNs, so the 3D view needs an internet connection. Every external URL lives in one `ASSETS` object at the top of the script, which makes self-hosting a one-place change.
+
+**Controls.** Click a home once for its card and again to go inside. Click a meter twice for its detail. Drag to orbit. Escape steps back out. Tab and Enter work throughout. **Sharper** and **Faster** switch the graphics quality.
+
+**Console API.**
+
+```js
+WattsWrong.getState()                       // current derived snapshot
+WattsWrong.setTime('2014-11-26T11:00:00Z')  // jump to an hour
+WattsWrong.load({ manifest, findings, timeseries })  // replay different data
+```
+
+## Backend
+
+`backend/` is the offline Python pipeline that produced the findings. It needs Python 3.12+ and [uv](https://docs.astral.sh/uv/).
 
 ```bash
 cd backend
 uv sync --locked
-uv run --locked python -m pytest -q pipeline
-uv run --locked python -m pipeline.validate
-uv run --locked python -m pipeline.embed
+uv run --locked python -m pytest -q pipeline   # test suite
+uv run --locked python -m pipeline.validate    # check exports against the JSON contracts
+uv run --locked python -m pipeline.embed       # write exports into ../index.html
 ```
 
-`pipeline.validate` checks the frozen run's exports in `web/public/data/` against the locked contracts and cross-table rules, and prints up to 200 violations and their total. `pipeline.embed` validates them again, then writes the manifest, findings and hourly series into `../index.html`; it fails if any row is lost or an hour repeats, and swaps the page in only once it is fully written. From a clean checkout these commands leave `index.html` unchanged.
-
-Rebuild the hourly inputs (needs the raw files below):
+None of these steps need the raw data. To rebuild the hourly inputs, download the source files below into `backend/data/raw/` and run `pipeline.ingest` for each home:
 
 ```bash
 uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House1.csv house1
-uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House3.csv house3
-uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House10.csv house10
-uv run --locked python -m pipeline.ingest data/raw/refit/CLEAN_House18.csv house18
 ```
 
-Ingest writes `data/interim/<site>_hourly.parquet` and `reports/quality_<site>.json` for each of `house1`, `house3`, `house10` and `house18`, all relative to `backend/`. Raw inputs, hourly intermediates, quality reports and the virtual environment are git-ignored. Hourly files are rebuilt from raw CSVs, never copied.
+The frozen run is locked. `pipeline.run final` refuses to run again without a logged `--rerun-reason`.
 
-Place the following real source files under `backend/data/raw/`. Houses 1 and 3 are individual cleaned CSVs on Zenodo. Houses 10 and 18 are not on Zenodo: extract them from Strathclyde's cleaned archive (`CLEAN_REFIT_081116.7z`, md5 `a3ba34e6e8073f1aea490e62cb731d2b`), whose House 1 and 3 files match Zenodo's md5s. The annotation source supplies the labels and their readme. All files are CC BY 4.0.
+<details>
+<summary>Raw source files and checksums</summary>
 
-| Raw file (relative to `backend/`) | MD5 | Download source |
+| File (under `backend/`) | MD5 | Source |
 |---|---|---|
-| `data/raw/refit/CLEAN_House1.csv` | `f5336d80c700f866af0d997ea8d39146` | [REFIT House 1](https://zenodo.org/records/5063428/files/CLEAN_House1.csv?download=1) |
-| `data/raw/refit/CLEAN_House3.csv` | `ab6e34ea386eb4563bfcb9762619dc8f` | [REFIT House 3](https://zenodo.org/records/5063428/files/CLEAN_House3.csv?download=1) |
-| `data/raw/refit/CLEAN_House10.csv` | `e442a1b1dc7ce73fae516a000efb1215` | [REFIT House 10](https://doi.org/10.15129/9ab14b0e-19ac-4279-938f-27f643078cec), in `CLEAN_REFIT_081116.7z` |
-| `data/raw/refit/CLEAN_House18.csv` | `7fbb09fd62860b3aef0c19c545b66342` | [REFIT House 18](https://doi.org/10.15129/9ab14b0e-19ac-4279-938f-27f643078cec), in `CLEAN_REFIT_081116.7z` |
-| `data/raw/labels/REFIT_anomalies.csv` | `dd96a35285b2b207000650867ace10c2` | [REFIT anomaly annotations](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33) |
-| `data/raw/labels/README_ICASSP.txt` | `9d0bfaf94c936f215f3e86c357fd5221` | [Annotation readme](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33) |
+| `data/raw/refit/CLEAN_House1.csv` | `f5336d80c700f866af0d997ea8d39146` | [Zenodo](https://zenodo.org/records/5063428/files/CLEAN_House1.csv?download=1) |
+| `data/raw/refit/CLEAN_House3.csv` | `ab6e34ea386eb4563bfcb9762619dc8f` | [Zenodo](https://zenodo.org/records/5063428/files/CLEAN_House3.csv?download=1) |
+| `data/raw/refit/CLEAN_House10.csv` | `e442a1b1dc7ce73fae516a000efb1215` | [Strathclyde](https://doi.org/10.15129/9ab14b0e-19ac-4279-938f-27f643078cec), in `CLEAN_REFIT_081116.7z` |
+| `data/raw/refit/CLEAN_House18.csv` | `7fbb09fd62860b3aef0c19c545b66342` | [Strathclyde](https://doi.org/10.15129/9ab14b0e-19ac-4279-938f-27f643078cec), in `CLEAN_REFIT_081116.7z` |
+| `data/raw/labels/REFIT_anomalies.csv` | `dd96a35285b2b207000650867ace10c2` | [Strathclyde](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33) |
+| `data/raw/labels/README_ICASSP.txt` | `9d0bfaf94c936f215f3e86c357fd5221` | [Strathclyde](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33) |
 
-The fork includes ingest, site/channel maps, labels, model, run orchestration, evaluation and validation, with their five existing test files. The frozen config, locked JSON contracts and ADRs 0001–0013 are preserved verbatim alongside ADR 0014. The web app, hosted-demo check, reproduction harness, post-hoc evaluation, site-facts tool and judging scripts are excluded.
+</details>
 
-### Frozen run
+## Project structure
 
-This repo's frozen run, **20261010T190414Z** (code `f18f389`, config `d3020c3ee48d`), scored the test window (31 Jan – 31 May 2015) once over four sites on the unchanged frozen config, with no tuning. Its lock is `backend/reports/metrics_final.json`; `pipeline.run final` refuses to run again without a logged `--rerun-reason`. Exports are in `backend/web/public/data/`, the matches in `reports/matches_final.json` and parquet copies in `artifacts/20261010T190414Z/`.
+```
+index.html                  the complete app: HTML, CSS, JS and embedded data
+backend/
+  pipeline/                 ingest, model, detection, evaluation, validation, embed (+ tests)
+  config/config.json        frozen detector configuration
+  contracts/                JSON schemas for the exports
+  docs/adr/                 architecture decision records
+  reports/                  final metrics and event matches
+  web/public/data/          the frozen run's exports
+```
 
-- **Re-run, disclosed.** The first attempt (code `557fb17`) scored the window and wrote timeseries, findings and metrics, then crashed writing the manifest: a spread value was NaN (see House 10 below). Only its serialisation was fixed. The logged re-run produced bit-identical timeseries, findings and metrics.
-- **Homes A and B** have the same 64 findings as before the split, unchanged.
-- **Houses 10 and 18 were scored blind** (ADR 0014). Their per-meter results, as they came out (`metrics_final.json`): House 10 chest freezer recall 0 of 10 labelled events, 3 unmatched findings (1.1 per month); fridge-freezer 0 of 1, no findings; kMix no labelled events in the window, no findings. House 18 garage freezer 1 of 4 (delay 5 h), no unmatched findings; garage fridge no labelled events, 6 unmatched findings (2.2 per month); fridge-freezer 0 of 3, no findings. Their whole-house findings count only in the pooled scopes: all sites and channels, recall 11 of 37 with 56 unmatched findings (5.2 per house-month) and a median delay of 7.3 h; whole-house only, 4 of 37 (median delay 26.5 h).
-- **House 10 caveats.** Its labelled chest-freezer event from 7 Jun to 4 Oct 2014 covers the whole training hold-out, so the whole-house and chest-freezer meters have no out-of-sample residuals and their spread sits at the frozen floor (0.005 kWh) every hour. Its overall spread is exported as `null`. The REFIT ReadMe also notes that House 10's fridge-freezer was replaced in March 2015 and a second freezer was added after April 2015, apparently on the chest-freezer channel. Both fall inside the test window and may cause findings that aren't anomalies. Per ADR 0014 they are disclosed, not tuned away.
+## Limitations
 
-## Assets and licences
+- Room layouts and furniture are illustrative. Only the appliance placement reflects each home's real meters.
+- Lighting is fixed at golden hour. Rendering is rasterised, not path-traced.
+- Gaps in the source data are not filled. Costs cover recorded hours only.
+- 60 fps is a target, not a guarantee. The renderer lowers its resolution automatically on slow GPUs.
 
-All URLs, auxiliary maps and glTF dependencies are in the single `ASSETS` object at the beginning of the module. Replace these URLs with local equivalents to self-host. Texture sets include colour, normal, roughness and AO at 1K. The HDRI is 2K.
+## Credits and licences
 
-| Asset / use | Author | Licence | Source |
-|---|---|---|---|
-| hdri | Greg Zaal | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/kloppenheim_06) |
-| brick | Rob Tuytel, Dimitrios Savva | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/brick_wall_001) |
-| roof | Rob Tuytel | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/roof_tiles_14) |
-| road | Rob Tuytel | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/asphalt_02) |
-| grass | Charlotte Baglioni | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/grass_ground) |
-| wood | Dimitrios Savva | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/wood_floor_deck) |
-| tile | Charlotte Baglioni | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/interior_tiles) |
-| plaster | Amal Kumar | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/painted_plaster_wall) |
-| fabric | Rob Tuytel | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/fabric_pattern_07) |
-| sofa | Fran Calvente | CC0 1.0 | [Poly Haven](https://polyhaven.com/a/sofa_03) |
-| font | IBM | SIL Open Font License 1.1 | [Source](https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap) |
-| engine | three.js contributors | MIT | [Source](https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js) |
-| procedural | WattsWrong implementation | CC0 1.0 | Generated in this file |
+**Data.** REFIT electricity data by David Murray and Lina Stankovic, University of Strathclyde ([Zenodo](https://doi.org/10.5281/zenodo.5063428), [Strathclyde](https://doi.org/10.15129/9ab14b0e-19ac-4279-938f-27f643078cec)), CC BY 4.0. Anomaly annotations by Rashid et al., ICASSP 2019 ([source](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33)), CC BY 4.0.
 
-REFIT electricity data: David Murray and Lina Stankovic, University of Strathclyde, **CC BY 4.0**, Houses 1 and 3 from the [Zenodo dataset](https://doi.org/10.5281/zenodo.5063428), Houses 10 and 18 from the [original Strathclyde dataset](https://doi.org/10.15129/9ab14b0e-19ac-4279-938f-27f643078cec). Research annotations: Rashid et al., ICASSP 2019, **CC BY 4.0**, [source](https://doi.org/10.15129/9729a2a0-11ce-4cce-b0d0-144c483fcb33). The supplied exported findings are embedded unchanged; raw annotation CSVs were not converted into additional findings.
-
-## Data interface
-
-`window.WattsWrong.load({ manifest, findings, timeseries })` validates and replaces the replay, stops playback, returns to the street, rebuilds controls, and starts at the exact busiest hourly timestamp. Omit `timeseries` to use labelled total costs. The embedded run is **20261010T190414Z**, with **179 findings**, **four homes**, and **16 meters**. The embedded series contains **81,046 rows**.
-
-The original manifest and finding records are embedded in `<script type="application/json" id="wattswrong-data">`. The clearly marked data section normalises them; rendering uses derived home and meter views. Manifest sites fill Homes A–D in order: REFIT Houses 1, 3, 10 and 18.
-
-Activity is exactly `detected_ts <= t < end_ts + 1 hour`; a null end runs through the site's final coverage hour. Strength uses the fixed 0.50 / 0.75 thresholds. Hourly cost uses a prefix sum of positive residuals for the same site and channel from `start_ts` through `min(t, end_ts)`, multiplied by 0.444. If no series is available for a channel, the UI labels `excess_kwh × 0.444` as **Total extra cost**. Meter costs are not added together because aggregate and appliance readings overlap.
-
-Possible causes: appliance findings show the exported `possible_causes`. Whole-house findings have none and the meter cannot name a device, so the dashboard estimates three from the average extra power (`excess_kwh` over the finding's hours, banded with typical US DOE appliance wattages) plus one from the pattern's timing, labelled as estimates to check, not a diagnosis. Findings longer than 7 days carry a note that their cost may be overstated.
-
-Convenience methods: `window.WattsWrong.getState()` returns a derived snapshot; `window.WattsWrong.setTime('2014-11-26T11:00:00Z')` selects a replay hour.
-
-## Assumptions and practical limits
-
-- Room layouts, furniture and positions are illustrative. Both-floor mode separates the upper floor vertically so ground-floor rooms remain visible. Ground and First isolate their respective floors. The camera-facing room walls lower as the camera moves.
-- Golden-hour lighting stays fixed as replay time changes. The optional day/night lighting and depth-of-field effects were omitted. Camera transitions take about 0.9 seconds; reduced-motion settings replace flights with cuts and remove pulsing.
-- Architecture, appliances, vegetation and most furniture are procedural. The CC0 sofa loads on first entry and retains a procedural fallback if unavailable. A reflected HDRI, PBR texture maps, raster shadows, SSAO and selective bloom provide the architectural rendering; this is not path tracing, and photographic equivalence is not claimed.
-- All four homes have data and open cutaways. Homes C and D use the shared interior: their whole-house meter and fridge-freezer are placed. Home C's chest freezer sits in its attached garage and its Kenwood kMix on the kitchen counter; Home D's garage fridge and garage freezer sit in its attached garage. Those meters appear in the meter table, timeline and dashboards. A home without a manifest site would show a "No meter connected" placard; the embedded run fills all four.
-- The supplied series has gaps. Costs sum the supplied positive residual rows; missing hours are not estimated. Total fallback costs are expressly labelled and can include hours later than the selected replay time, as required by the data contract.
-- The app never runs the forecast models. It replays the exports of the backend's frozen run, embedded by `pipeline.embed`; recall and other evaluation results stay in `backend/reports/`.
-- The application is self-contained in its HTML/CSS/JS and embedded small data, but external three.js modules still require a working CDN connection unless mirrored locally. Optional visual-asset errors keep procedural materials/models. If the engine or WebGL is unavailable, the accessible replay table remains usable. Browser-generated network diagnostics cannot be prevented when remote assets are deliberately blocked.
-- 60 fps is a performance target, not a measured guarantee. If frames run slow, the pixel ratio steps down and Sharper falls back to Faster; choosing a quality again resets this. Status glows use emissive materials and bloom (rendered at half resolution) rather than point lights, so status changes never force shader recompiles. Instanced foliage and roof tiles, static geometry batching, lazy interiors, shared resources and the Balanced toggle reduce cost. GPU/driver performance varies.
-
-## Verification
-
-The data interface's checks were first run on the two-home data (64 findings): every detection/end boundary, the busiest hourly timestamp, null-ended coverage, fixed strength bands, replacement data, missing-series totals and cumulative costs against raw series rows. Browser checks then covered both homes with data, keyboard entry, floor switching, playback/pause, return navigation, quality switching and a 375-pixel viewport without horizontal document overflow, with no console errors.
-
-For the four-home run, the backend's tests and validator pass, and a browser check confirmed four homes on the street, all 16 meters in the meter table, Homes C and D opening their interiors, and no console errors. The busiest hour is now **24 October 2014, 05:00 Europe/London**, with five active findings; the replay opens there. Deliberately blocked assets and a broad cross-browser/device matrix were not exercised.
-
-## Wording
-
-Interface text is written for householders: "expected use" for the day-ahead forecast, "Whole home" for the whole-house meter, plain category labels, and "Normal" as a meter state, never a detection strength. *Confirmation time* (a finding's start to its detection) is not the evaluated *detection delay*. Whole-house findings get *estimated causes*, labelled as guesses; only appliance meters get *possible causes*. The interface uses no emoji. Finding titles, explanations and actions are the exported text, passed through `clean()`.
+**Assets.** HDRI and textures from [Poly Haven](https://polyhaven.com) (CC0): Greg Zaal, Rob Tuytel, Dimitrios Savva, Charlotte Baglioni, Amal Kumar and Fran Calvente. [IBM Plex Sans](https://fonts.google.com/specimen/IBM+Plex+Sans) (SIL OFL 1.1). [three.js](https://threejs.org) (MIT).
